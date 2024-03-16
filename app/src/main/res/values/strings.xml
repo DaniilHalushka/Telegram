@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Telegram</string>
+    <string name="create_group">Create group</string>
 </resources>
