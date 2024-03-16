@@ -3,6 +3,9 @@
     <style name="Base.Theme.Telegram" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#0088CC</item>
+        <item name="colorPrimaryDark">#007ACC</item>
+        <item name="colorAccent">#FFFFFF</item>
     </style>
 
     <style name="Theme.Telegram" parent="Base.Theme.Telegram" />
