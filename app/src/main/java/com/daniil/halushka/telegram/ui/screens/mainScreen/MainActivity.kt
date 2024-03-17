@@ -1,6 +1,8 @@
 package com.daniil.halushka.telegram.ui.screens.mainScreen
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.daniil.halushka.telegram.R
@@ -9,8 +11,10 @@ import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
+import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -64,6 +68,66 @@ class MainActivity : AppCompatActivity() {
                     .withIconTintingEnabled(true)
                     .withName(R.string.create_group)
                     .withSelectable(false)
-            ).build()
+                    .withIcon(R.drawable.ic_menu_create_groups),
+                PrimaryDrawerItem()
+                    .withIdentifier(101)
+                    .withIconTintingEnabled(true)
+                    .withName(R.string.create_secret_chat)
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_secret_chat),
+                PrimaryDrawerItem()
+                    .withIdentifier(102)
+                    .withIconTintingEnabled(true)
+                    .withName(R.string.create_channel)
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_create_channel),
+                PrimaryDrawerItem()
+                    .withIdentifier(103)
+                    .withIconTintingEnabled(true)
+                    .withName(R.string.contacts)
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_contacts),
+                PrimaryDrawerItem()
+                    .withIdentifier(104)
+                    .withIconTintingEnabled(true)
+                    .withName(R.string.calls)
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_phone),
+                PrimaryDrawerItem()
+                    .withIdentifier(105)
+                    .withIconTintingEnabled(true)
+                    .withName(R.string.saved_messages)
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_favorites),
+                PrimaryDrawerItem()
+                    .withIdentifier(106)
+                    .withIconTintingEnabled(true)
+                    .withName(R.string.settings)
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_settings),
+                DividerDrawerItem(),
+                PrimaryDrawerItem()
+                    .withIdentifier(107)
+                    .withIconTintingEnabled(true)
+                    .withName(R.string.add_friends)
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_invate),
+                PrimaryDrawerItem()
+                    .withIdentifier(108)
+                    .withIconTintingEnabled(true)
+                    .withName(R.string.faq)
+                    .withSelectable(false)
+                    .withIcon(R.drawable.ic_menu_help),
+            ).withOnDrawerItemClickListener(object :Drawer.OnDrawerItemClickListener{
+                override fun onItemClick(
+                    view: View?,
+                    position: Int,
+                    drawerItem: IDrawerItem<*>
+                ): Boolean {
+                    Toast.makeText(applicationContext, position.toString(), Toast.LENGTH_SHORT)
+                        .show()
+                    return false
+                }
+            }).build()
     }
 }
