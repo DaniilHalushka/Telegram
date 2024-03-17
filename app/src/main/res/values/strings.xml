@@ -9,4 +9,6 @@
     <string name="settings">Settings</string>
     <string name="add_friends">Add friends</string>
     <string name="faq">FAQ about Telegram</string>
+
+    <string name="chats">Chats</string>
 </resources>

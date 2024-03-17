@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.mainScreen
+package com.daniil.halushka.telegram.ui.screens.main
 
 import android.os.Bundle
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.ActivityMainBinding
+import com.daniil.halushka.telegram.ui.screens.chat.ChatFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeFunctionality() {
         setSupportActionBar(moduleToolbar)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.dataContainer, ChatFragment()).commit()
         createHeader()
         createDrawer()
     }
@@ -55,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             ).build()
     }
 
-    private fun createDrawer(){
+    private fun createDrawer() {
         moduleDrawer = DrawerBuilder()
             .withActivity(this)
             .withToolbar(moduleToolbar)
@@ -118,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                     .withName(R.string.faq)
                     .withSelectable(false)
                     .withIcon(R.drawable.ic_menu_help),
-            ).withOnDrawerItemClickListener(object :Drawer.OnDrawerItemClickListener{
+            ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
                 override fun onItemClick(
                     view: View?,
                     position: Int,
