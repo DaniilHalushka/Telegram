@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.ActivityMainBinding
-import com.daniil.halushka.telegram.ui.screens.chat.ChatFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.chat.ChatFragment
 import com.daniil.halushka.telegram.ui.screens.util.AppDrawer
 
 class MainActivity : AppCompatActivity() {

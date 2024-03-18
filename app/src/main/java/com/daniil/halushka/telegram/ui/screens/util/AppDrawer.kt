@@ -4,7 +4,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.daniil.halushka.telegram.R
-import com.daniil.halushka.telegram.ui.screens.settings.SettingsFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.settings.SettingsFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
