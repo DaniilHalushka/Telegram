@@ -51,4 +51,7 @@ dependencies {
 
     //Material Drawer
     implementation(libs.materialdrawer)
+
+    //CircleImageView
+    implementation(libs.circleimageview)
 }
