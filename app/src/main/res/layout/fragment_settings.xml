@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_header_block"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/settings_header_height"
         android:background="@color/colorPrimary"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,37 +18,36 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/settings_user_photo"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="16dp"
+            android:layout_width="@dimen/settings_user_photo_width"
+            android:layout_height="@dimen/settings_user_photo_height"
+            android:layout_marginStart="@dimen/horizontal_margin"
             android:background="@color/colorAccent"
             android:src="@drawable/default_user"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp"
+            app:civ_border_width="@dimen/settings_user_photo_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/settings_username"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginTop="@dimen/vertical_margin"
             android:text="@string/test_username"
             android:textColor="@color/colorAccent"
-            android:textSize="16sp"
+            android:textSize="@dimen/normalText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/settings_user_photo"
             app:layout_constraintTop_toTopOf="@id/settings_user_photo" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/horizontal_margin"
             android:text="@string/test_status"
             android:textColor="@color/colorDarkAccent"
-            android:textSize="14sp"
+            android:textSize="@dimen/smallText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/settings_user_photo"
             app:layout_constraintTop_toBottomOf="@id/settings_username" />
