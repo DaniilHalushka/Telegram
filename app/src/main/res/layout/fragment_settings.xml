@@ -21,9 +21,8 @@
             android:layout_width="@dimen/settings_user_photo_width"
             android:layout_height="@dimen/settings_user_photo_height"
             android:layout_marginStart="@dimen/horizontal_margin"
-            android:background="@color/colorAccent"
             android:src="@drawable/default_user"
-            app:civ_border_width="@dimen/settings_user_photo_border"
+            app:civ_circle_background_color="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginTop="@dimen/vertical_large_margin"
+        android:layout_marginTop="@dimen/large_vertical_margin"
         android:text="@string/account"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/smallText"
@@ -92,5 +91,73 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/click_to_change_phone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_button_change_login"
+        style="@style/settings_buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_button_change_phone">
+
+        <TextView
+            android:id="@+id/settings_login"
+            style="@style/normal_text"
+            android:text="@string/test_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/settings_button_change_login" />
+
+        <TextView
+            android:id="@+id/click_to_change_login"
+            style="@style/small_text"
+            android:text="@string/click_to_change_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_login" />
+
+        <View
+            style="@style/separator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/click_to_change_login" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_button_change_information"
+        style="@style/settings_buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_button_change_login">
+
+        <TextView
+            android:id="@+id/settings_information"
+            style="@style/normal_text"
+            android:text="@string/test_information"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/settings_button_change_information" />
+
+        <TextView
+            android:id="@+id/click_to_change_information"
+            style="@style/small_text"
+            android:text="@string/click_to_change_information"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_information" />
+
+        <View
+            style="@style/separator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/click_to_change_information" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/settings_change_user_avatar"
+        android:layout_width="@dimen/settings_user_photo_width"
+        android:layout_height="@dimen/settings_user_photo_height"
+        android:layout_marginEnd="@dimen/end_margin"
+        android:src="@drawable/ic_camera"
+        app:civ_border_color="@color/colorGrey"
+        app:civ_circle_background_color="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/settings_header_block"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_header_block" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
