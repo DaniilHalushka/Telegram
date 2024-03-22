@@ -7,7 +7,6 @@
     <dimen name="smallText">14sp</dimen>
     <dimen name="zero_width">0dp</dimen>
     <dimen name="large_vertical_margin">16dp</dimen>
-    <dimen name="end_margin">24dp</dimen>
 
     <!--Settings fragment-->
     <dimen name="settings_user_photo_width">64dp</dimen>
@@ -16,6 +15,7 @@
 
     <dimen name="settings_change_user_avatar_width">48dp</dimen>
     <dimen name="settings_change_user_avatar_height">48dp</dimen>
+    <dimen name="settings_ripple_effect_radius">4dp</dimen>
 
 
 </resources>

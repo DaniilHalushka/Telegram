@@ -152,7 +152,7 @@
         android:id="@+id/settings_change_user_avatar"
         android:layout_width="@dimen/settings_user_photo_width"
         android:layout_height="@dimen/settings_user_photo_height"
-        android:layout_marginEnd="@dimen/end_margin"
+        android:layout_marginEnd="@dimen/horizontal_margin"
         android:src="@drawable/ic_camera"
         app:civ_border_color="@color/colorGrey"
         app:civ_circle_background_color="@color/colorAccent"
