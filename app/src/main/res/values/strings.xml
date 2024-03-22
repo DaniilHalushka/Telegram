@@ -18,7 +18,11 @@
     <string name="test_status">Test Status</string>
 
     <string name="test_phone">+123456789</string>
+    <string name="test_login">\@TestLogin</string>
+    <string name="test_information">Test information</string>
     <string name="click_to_change_phone">Click to change phone</string>
+    <string name="click_to_change_login">Click to change login</string>
+    <string name="click_to_change_information">Write information about yourself</string>
 
 
 </resources>
