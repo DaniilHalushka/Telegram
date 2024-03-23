@@ -25,24 +25,15 @@
 
         <TextView
             android:id="@+id/settings_username"
-            android:layout_width="@dimen/zero_width"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="@dimen/vertical_margin"
+            style="@style/header_username_field"
             android:text="@string/test_username"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/normalText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/settings_user_photo"
             app:layout_constraintTop_toTopOf="@id/settings_user_photo" />
 
         <TextView
-            android:layout_width="@dimen/zero_width"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/horizontal_margin"
+            style="@style/header_username_status"
             android:text="@string/test_status"
-            android:textColor="@color/colorDarkAccent"
-            android:textSize="@dimen/smallText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/settings_user_photo"
             app:layout_constraintTop_toBottomOf="@id/settings_username" />
@@ -50,15 +41,10 @@
 
     <TextView
         android:id="@+id/settings_text_account"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/horizontal_margin"
-        android:layout_marginTop="@dimen/large_vertical_margin"
-        android:layout_marginEnd="@dimen/horizontal_margin"
+        style="@style/settings_account_label"
         android:text="@string/account"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/smallText"
-        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/settings_header_block" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

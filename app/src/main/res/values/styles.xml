@@ -59,4 +59,32 @@
         <item name="android:layout_height">@dimen/settings_header_height</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
+
+    <style name="header_username_field">
+        <item name="android:layout_width">@dimen/zero_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/normalText</item>
+    </style>
+
+    <style name="header_username_status">
+        <item name="android:layout_width">@dimen/zero_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:textColor">@color/colorDarkAccent</item>
+        <item name="android:textSize">@dimen/smallText</item>
+    </style>
+
+    <style name="settings_account_label">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/large_vertical_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/smallText</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
