@@ -8,19 +8,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_header_block"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_header_height"
-        android:background="@color/colorPrimary"
 
+        style="@style/settings_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/settings_user_photo"
-            android:layout_width="@dimen/settings_user_photo_width"
-            android:layout_height="@dimen/settings_user_photo_height"
-            android:layout_marginStart="@dimen/horizontal_margin"
+            style="@style/circle_user_image_view"
             android:src="@drawable/default_user"
             app:civ_circle_background_color="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -58,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontal_margin"
         android:layout_marginTop="@dimen/large_vertical_margin"
+        android:layout_marginEnd="@dimen/horizontal_margin"
         android:text="@string/account"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/smallText"
@@ -150,9 +147,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/settings_change_user_avatar"
-        android:layout_width="@dimen/settings_user_photo_width"
-        android:layout_height="@dimen/settings_user_photo_height"
-        android:layout_marginEnd="@dimen/horizontal_margin"
+        style="@style/circle_camera_image_view"
         android:src="@drawable/ic_camera"
         app:civ_border_color="@color/colorGrey"
         app:civ_circle_background_color="@color/colorAccent"
