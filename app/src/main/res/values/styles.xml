@@ -87,4 +87,9 @@
         <item name="android:textSize">@dimen/smallText</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="action_menu" parent="Theme.AppCompat.Light">
+        <item name="background">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@color/colorBlack</item>
+    </style>
 </resources>
