@@ -24,5 +24,8 @@
     <string name="click_to_change_login">Click to change login</string>
     <string name="click_to_change_information">Write information about yourself</string>
 
+    <string name="change_name">Change name</string>
+    <string name="exit">Exit</string>
+
 
 </resources>

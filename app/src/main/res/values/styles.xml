@@ -6,6 +6,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin</item>
         <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="background">@drawable/ripple_effect</item>
     </style>
 
     <style name="normal_text">
@@ -38,5 +40,56 @@
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+    <style name="circle_user_image_view">
+        <item name="android:layout_width">@dimen/settings_user_photo_width</item>
+        <item name="android:layout_height">@dimen/settings_user_photo_height</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+    </style>
+
+    <style name="circle_camera_image_view">
+        <item name="android:layout_width">@dimen/settings_user_photo_width</item>
+        <item name="android:layout_height">@dimen/settings_user_photo_height</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+    </style>
+
+    <style name="settings_header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/settings_header_height</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="header_username_field">
+        <item name="android:layout_width">@dimen/zero_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/normalText</item>
+    </style>
+
+    <style name="header_username_status">
+        <item name="android:layout_width">@dimen/zero_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:textColor">@color/colorDarkAccent</item>
+        <item name="android:textSize">@dimen/smallText</item>
+    </style>
+
+    <style name="settings_account_label">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/large_vertical_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/smallText</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="action_menu" parent="Theme.AppCompat.Light">
+        <item name="background">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@color/colorBlack</item>
     </style>
 </resources>
