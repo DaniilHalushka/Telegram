@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.main
+package com.daniil.halushka.telegram.ui.screens.activities.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
