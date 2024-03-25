@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 
 open class BaseFragment(
     private val layout: Int
-) : Fragment() {
+) : Fragment(layout) {
     private lateinit var moduleRootView: View
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

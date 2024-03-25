@@ -7,27 +7,22 @@
     tools:context=".ui.screens.fragments.authorization.EnterPhoneNumberFragment">
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/horizontal_margin"
-        android:padding="@dimen/appPadding"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/normalText"
+        android:id="@+id/register_input_phone_number"
+        style="@style/edit_register_text"
+        android:autofillHints=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/horizontal_margin"
-        android:backgroundTint="@color/colorPrimary"
+        android:id="@+id/register_next_button"
+        style="@style/float_action_button"
         android:contentDescription="@string/next"
-        app:srcCompat="@drawable/ic_button_next"
-        app:iconTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:shapeAppearanceOverlay="@style/RoundedShape"/>
+        app:shapeAppearanceOverlay="@style/RoundedShape"
+        app:srcCompat="@drawable/ic_button_next" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
