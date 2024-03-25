@@ -29,5 +29,7 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="Theme.Telegram" parent="Base.Theme.Telegram" />
+    <style name="Theme.Telegram" parent="Base.Theme.Telegram">
+        <item name="colorOnPrimaryContainer">@color/colorAccent</item>
+    </style>
 </resources>
