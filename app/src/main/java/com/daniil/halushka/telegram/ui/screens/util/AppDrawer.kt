@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.ui.screens.fragments.settings.SettingsFragment
+import com.daniil.halushka.telegram.util.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -107,9 +108,11 @@ class AppDrawer(
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
                     when (position) {
-                        7 -> mainActivity.supportFragmentManager.beginTransaction()
+                        7 -> mainActivity.replaceFragment(SettingsFragment())
+                        //Тут может поломаться код, если так будет, то вернуть обратно код ниже
+                        /*supportFragmentManager.beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.dataContainer, SettingsFragment()).commit()
+                            .replace(R.id.dataContainer, SettingsFragment()).commit() */
                     }
                     return false
                 }

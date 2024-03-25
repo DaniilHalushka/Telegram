@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.ActivityAuthorizationBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.authorization.EnterPhoneNumberFragment
+import com.daniil.halushka.telegram.util.replaceFragment
 
 class AuthorizationActivity : AppCompatActivity() {
 
@@ -22,8 +23,11 @@ class AuthorizationActivity : AppCompatActivity() {
         moduleToolbar = moduleBinding.authorizationToolbar
         setSupportActionBar(moduleToolbar)
         title = getString(R.string.register_title_your_phone)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.authorizationDataContainer, EnterPhoneNumberFragment())
-            .commit()
+
+        replaceFragment(EnterPhoneNumberFragment())
+        //Тут может поломаться код, если так будет, то вернуть обратно код ниже
+        /*supportFragmentManager.beginTransaction()
+            .add(R.id.dataContainer, EnterPhoneNumberFragment())
+            .commit() */
     }
 }
