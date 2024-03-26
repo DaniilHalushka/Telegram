@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.0"
+agp = "8.3.1"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 junit = "4.13.2"
@@ -11,6 +11,7 @@ activity = "1.8.2"
 constraintlayout = "2.1.4"
 materialdrawer = "7.0.0"
 circleimageview = "3.1.0"
+firebaseAuth = "22.3.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -23,6 +24,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 materialdrawer = { module = "com.mikepenz:materialdrawer", version.ref = "materialdrawer" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
