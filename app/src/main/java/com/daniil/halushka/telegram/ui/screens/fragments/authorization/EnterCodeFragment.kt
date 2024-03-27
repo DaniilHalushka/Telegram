@@ -7,10 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.FragmentEnterCodeBinding
+import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
+import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
+import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.AppTextWatcher
+import com.daniil.halushka.telegram.util.replaceActivity
 import com.daniil.halushka.telegram.util.showToast
+import com.google.firebase.auth.PhoneAuthProvider
 
-class EnterCodeFragment : Fragment(R.layout.fragment_enter_code) {
+class EnterCodeFragment(
+    private val phoneNumber: String,
+    val id: String
+) : Fragment(R.layout.fragment_enter_code) {
     private var _codeBinding: FragmentEnterCodeBinding? = null
     private val codeBinding get() = _codeBinding!!
 
@@ -25,16 +33,28 @@ class EnterCodeFragment : Fragment(R.layout.fragment_enter_code) {
 
     override fun onStart() {
         super.onStart()
+        (activity as AuthorizationActivity).title = phoneNumber
         codeBinding.registerInputCode.addTextChangedListener(AppTextWatcher {
             val string = codeBinding.registerInputCode.text.toString()
             if (string.length == 6) {
-                verificationCode()
+                enterVerificationCode()
             }
         })
     }
 
-    private fun verificationCode() {
-        showToast(getString(R.string.ok))
+    private fun enterVerificationCode() {
+        val code = codeBinding.registerInputCode.text.toString()
+        val credential = PhoneAuthProvider.getCredential(id, code)
+        AUTH.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    showToast(getString(R.string.auth_complete))
+                    (activity as AuthorizationActivity)
+                        .replaceActivity(MainActivity())
+                } else {
+                    showToast(task.exception?.message.toString())
+                }
+            }
     }
 
     override fun onDestroyView() {
