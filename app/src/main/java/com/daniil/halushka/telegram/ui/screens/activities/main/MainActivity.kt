@@ -7,8 +7,10 @@ import com.daniil.halushka.telegram.databinding.ActivityMainBinding
 import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
 import com.daniil.halushka.telegram.ui.screens.fragments.chat.ChatFragment
 import com.daniil.halushka.telegram.ui.screens.util.AppDrawer
+import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.replaceActivity
 import com.daniil.halushka.telegram.util.replaceFragment
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -34,13 +36,14 @@ class MainActivity : AppCompatActivity() {
             mainActivity = this,
             toolbar = moduleToolbar
         )
+        AUTH = FirebaseAuth.getInstance()
     }
 
     private fun initializeFunctionality() {
-        if (true) {
+        if (AUTH.currentUser != null) {
             moduleAppDrawer.create()
             setSupportActionBar(moduleToolbar)
-            replaceFragment(ChatFragment())
+            replaceFragment(ChatFragment(), false)
         } else {
             replaceActivity(AuthorizationActivity())
         }
