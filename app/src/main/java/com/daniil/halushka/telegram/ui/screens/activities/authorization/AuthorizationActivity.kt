@@ -24,7 +24,7 @@ class AuthorizationActivity : AppCompatActivity() {
         setSupportActionBar(moduleToolbar)
         title = getString(R.string.register_title_your_phone)
 
-        replaceFragment(EnterPhoneNumberFragment())
+        replaceFragment(EnterPhoneNumberFragment(), false)
         //Тут может поломаться код, если так будет, то вернуть обратно код ниже
         /*supportFragmentManager.beginTransaction()
             .add(R.id.dataContainer, EnterPhoneNumberFragment())
