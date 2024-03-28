@@ -9,11 +9,12 @@
     <EditText
         android:id="@+id/register_input_phone_number"
         style="@style/edit_register_text"
-        android:autofillHints=""
+        android:hint="@string/auth_phone_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        android:autofillHints="" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/register_next_button"
