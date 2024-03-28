@@ -12,6 +12,7 @@ constraintlayout = "2.1.4"
 materialdrawer = "7.0.0"
 circleimageview = "3.1.0"
 firebaseAuth = "22.3.1"
+firebaseDatabaseKtx = "20.3.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +26,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 materialdrawer = { module = "com.mikepenz:materialdrawer", version.ref = "materialdrawer" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

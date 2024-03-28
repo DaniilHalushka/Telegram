@@ -36,6 +36,7 @@
     <string name="enter_phone_number">Enter phone number</string>
     <string name="ok">OK</string>
     <string name="auth_complete">Authorization complete, you are welcome!</string>
+    <string name="auth_phone_hint">Enter your phone number</string>
 
 
 </resources>
