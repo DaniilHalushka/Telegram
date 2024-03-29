@@ -3,6 +3,7 @@ package com.daniil.halushka.telegram.ui.screens.util
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.ui.screens.fragments.settings.SettingsFragment
 import com.daniil.halushka.telegram.util.replaceFragment
@@ -21,10 +22,30 @@ class AppDrawer(
 ) {
     private lateinit var moduleDrawer: Drawer
     private lateinit var moduleHeader: AccountHeader
+    private lateinit var moduleDrawerLayout: DrawerLayout
 
     fun create(){
         createHeader()
         createDrawer()
+        moduleDrawerLayout = moduleDrawer.drawerLayout
+    }
+
+    fun disableDrawer(){
+        moduleDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = false
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        moduleDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toolbar.setNavigationOnClickListener {
+            mainActivity.supportFragmentManager.popBackStack()
+        }
+    }
+
+    fun enableDrawer(){
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        moduleDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = true
+        moduleDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        toolbar.setNavigationOnClickListener {
+            moduleDrawer.openDrawer()
+        }
     }
 
     private fun createHeader() {

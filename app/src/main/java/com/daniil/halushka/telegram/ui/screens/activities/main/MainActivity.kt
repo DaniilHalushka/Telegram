@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var moduleToolbar: Toolbar
 
-    private lateinit var moduleAppDrawer: AppDrawer
+    lateinit var moduleAppDrawer: AppDrawer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeFunctionality() {
         if (AUTH.currentUser != null) {
-            moduleAppDrawer.create()
             setSupportActionBar(moduleToolbar)
+            moduleAppDrawer.create()
             replaceFragment(ChatFragment(), false)
         } else {
             replaceActivity(AuthorizationActivity())
