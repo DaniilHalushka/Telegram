@@ -10,9 +10,7 @@ import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.replaceActivity
 
-class SettingsFragment : BaseFragment(
-    R.layout.fragment_settings
-) {
+class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
