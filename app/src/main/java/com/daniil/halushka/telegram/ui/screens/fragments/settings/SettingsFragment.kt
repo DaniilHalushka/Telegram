@@ -9,6 +9,7 @@ import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.replaceActivity
+import com.daniil.halushka.telegram.util.replaceParentFragment
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onResume() {
@@ -26,6 +27,8 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                 AUTH.signOut()
                 (activity as MainActivity).replaceActivity(AuthorizationActivity())
             }
+
+            R.id.settings_menu_change_name -> replaceParentFragment(ChangeNameFragment())
         }
         return true
     }
