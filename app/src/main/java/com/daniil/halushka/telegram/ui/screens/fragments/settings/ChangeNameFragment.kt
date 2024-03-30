@@ -36,6 +36,16 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
+
+        val fullNameList = USER.fullname.split(" ")
+        if (fullNameList.size > 1) {                                    //*TODO* Подумать, как написать этот if лучше
+            changeNameBinding.settingsInputName.setText(fullNameList[0])
+            changeNameBinding.settingsInputSurname.setText(fullNameList[1])
+        } else {
+            changeNameBinding.settingsInputName.setText("")
+            changeNameBinding.settingsInputSurname.setText("")
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -54,7 +64,7 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
         val name = changeNameBinding.settingsInputName.text.toString()
         val surname = changeNameBinding.settingsInputSurname.text.toString()
 
-        if (name.isEmpty()){
+        if (name.isEmpty()) {
             showToast(getString(R.string.settings_toast_empty_name))
         } else {
             val fullName = "$name $surname"
@@ -62,9 +72,9 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
                 .child(UID)
                 .child(CHILD_FULLNAME)
                 .setValue(fullName).addOnCompleteListener { task ->
-                    if(task.isSuccessful){
+                    if (task.isSuccessful) {
                         showToast(getString(R.string.toast_details_update))
-                        USER.fullName = fullName
+                        USER.fullname = fullName
                         parentFragmentManager.popBackStack()
                     }
                 }
