@@ -47,6 +47,7 @@ fun Fragment.replaceParentFragment(fragment: Fragment) {
         .commit()
 }
 
+//*TODO* если метод не понадобится, то потом удалить
 fun Fragment.replaceChildFragment(fragment: Fragment) {
     this.childFragmentManager.beginTransaction()
         .addToBackStack(null)
