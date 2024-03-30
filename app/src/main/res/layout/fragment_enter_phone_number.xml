@@ -8,7 +8,7 @@
 
     <EditText
         android:id="@+id/register_input_phone_number"
-        style="@style/edit_register_text"
+        style="@style/edit_text"
         android:hint="@string/auth_phone_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
