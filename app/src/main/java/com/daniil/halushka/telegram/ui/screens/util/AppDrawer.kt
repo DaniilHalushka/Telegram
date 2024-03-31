@@ -130,11 +130,6 @@ class AppDrawer(
                 ): Boolean {
                     when (position) {
                         7 -> mainActivity.replaceFragment(SettingsFragment())
-                        //*TODO* удалить потом комментарий
-                        //Тут может поломаться код, если так будет, то вернуть обратно код ниже
-                        /*supportFragmentManager.beginTransaction()
-                            .addToBackStack(null)
-                            .replace(R.id.dataContainer, SettingsFragment()).commit() */
                     }
                     return false
                 }
