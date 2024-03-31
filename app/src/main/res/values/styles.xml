@@ -109,6 +109,7 @@
     <style name="edit_text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
         <item name="android:layout_margin">@dimen/horizontal_margin</item>
         <item name="android:padding">@dimen/appPadding</item>
         <item name="android:textColor">@color/colorBlack</item>

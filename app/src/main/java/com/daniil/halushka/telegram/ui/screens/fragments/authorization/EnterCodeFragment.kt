@@ -27,6 +27,7 @@ class EnterCodeFragment(
 ) : Fragment(R.layout.fragment_enter_code) {
     private var _codeBinding: FragmentEnterCodeBinding? = null
     private val codeBinding get() = _codeBinding!!
+    //*TODO* переписать инициализацию binding, чтобы убрать !!
 
     override fun onCreateView(
         inflater: LayoutInflater,
