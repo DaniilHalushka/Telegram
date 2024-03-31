@@ -23,6 +23,8 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
     private var _changeNameBinding: FragmentChangeNameBinding? = null
     private val changeNameBinding get() = _changeNameBinding!!
 
+    //*TODO* переписать инициализацию binding, чтобы убрать !!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

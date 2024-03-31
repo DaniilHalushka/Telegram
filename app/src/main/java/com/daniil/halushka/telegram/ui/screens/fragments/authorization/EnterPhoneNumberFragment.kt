@@ -23,6 +23,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
 
     private var _phoneBinding: FragmentEnterPhoneNumberBinding? = null
     private val phoneBinding get() = _phoneBinding!!
+    //*TODO* переписать инициализацию binding, чтобы убрать !!
 
     private lateinit var modulePhoneNumber: String
     private lateinit var moduleCallback: PhoneAuthProvider.OnVerificationStateChangedCallbacks
