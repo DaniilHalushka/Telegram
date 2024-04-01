@@ -7,10 +7,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.FragmentChangeNameBinding
 import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
+import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.CHILD_FULLNAME
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
@@ -18,19 +18,15 @@ import com.daniil.halushka.telegram.util.UID
 import com.daniil.halushka.telegram.util.USER
 import com.daniil.halushka.telegram.util.showToast
 
-class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
-
-    private var _changeNameBinding: FragmentChangeNameBinding? = null
-    private val changeNameBinding get() = _changeNameBinding!!
-
-    //*TODO* переписать инициализацию binding, чтобы убрать !!
+class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
+    private lateinit var changeNameBinding: FragmentChangeNameBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _changeNameBinding = FragmentChangeNameBinding.inflate(inflater, container, false)
+        changeNameBinding = FragmentChangeNameBinding.inflate(inflater, container, false)
         return changeNameBinding.root
     }
 
