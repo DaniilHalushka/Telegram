@@ -27,10 +27,5 @@ class AuthorizationActivity : AppCompatActivity() {
         title = getString(R.string.register_title_your_phone)
 
         replaceFragment(EnterPhoneNumberFragment(), false)
-        //*TODO* удалить потом комментарий
-        //Тут может поломаться код, если так будет, то вернуть обратно код ниже
-        /*supportFragmentManager.beginTransaction()
-            .add(R.id.dataContainer, EnterPhoneNumberFragment())
-            .commit() */
     }
 }
