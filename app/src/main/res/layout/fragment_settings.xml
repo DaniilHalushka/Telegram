@@ -26,17 +26,18 @@
         <TextView
             android:id="@+id/settings_full_name"
             style="@style/header_username_field"
-            android:text="@string/test_username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/settings_user_photo"
-            app:layout_constraintTop_toTopOf="@id/settings_user_photo" />
+            app:layout_constraintTop_toTopOf="@id/settings_user_photo"
+            tools:text="@string/test_username" />
 
         <TextView
+            android:id="@+id/settings_status"
             style="@style/header_username_status"
-            android:text="@string/test_status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/settings_user_photo"
-            app:layout_constraintTop_toBottomOf="@id/settings_full_name" />
+            app:layout_constraintTop_toBottomOf="@id/settings_full_name"
+            tools:text="@string/test_status" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -57,9 +58,9 @@
         <TextView
             android:id="@+id/settings_phone_number"
             style="@style/normal_text"
-            android:text="@string/test_phone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/settings_button_change_phone" />
+            app:layout_constraintTop_toTopOf="@id/settings_button_change_phone"
+            tools:text="@string/test_phone" />
 
         <TextView
             android:id="@+id/click_to_change_phone"
@@ -85,9 +86,9 @@
         <TextView
             android:id="@+id/settings_username"
             style="@style/normal_text"
-            android:text="@string/test_login"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/settings_button_change_username" />
+            app:layout_constraintTop_toTopOf="@id/settings_button_change_username"
+            tools:text="@string/test_login" />
 
         <TextView
             android:id="@+id/click_to_change_username"
@@ -113,9 +114,9 @@
         <TextView
             android:id="@+id/settings_information"
             style="@style/normal_text"
-            android:text="@string/test_information"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/settings_button_change_information" />
+            app:layout_constraintTop_toTopOf="@id/settings_button_change_information"
+            tools:text="@string/test_information" />
 
         <TextView
             android:id="@+id/click_to_change_information"

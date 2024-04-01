@@ -1,7 +1,6 @@
 package com.daniil.halushka.telegram.ui.screens.fragments.authorization
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,16 +24,14 @@ class EnterCodeFragment(
     private val phoneNumber: String,
     val id: String
 ) : Fragment(R.layout.fragment_enter_code) {
-    private var _codeBinding: FragmentEnterCodeBinding? = null
-    private val codeBinding get() = _codeBinding!!
-    //*TODO* переписать инициализацию binding, чтобы убрать !!
+    private lateinit var codeBinding: FragmentEnterCodeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _codeBinding = FragmentEnterCodeBinding.inflate(inflater, container, false)
+        codeBinding = FragmentEnterCodeBinding.inflate(inflater, container, false)
         return codeBinding.root
     }
 
@@ -61,11 +58,9 @@ class EnterCodeFragment(
                     dataMap[CHILD_PHONE] = phoneNumber
                     dataMap[CHILD_USERNAME] = userId
 
-                    Log.d("debug", "before second task")
                     REF_DATABASE_ROOT.child(NODE_USERS).child(userId)
                         .updateChildren(dataMap)
-                        .addOnCompleteListener { secondTask -> //может попробовать addOnSuccessListener?
-                            Log.d("debug", "in second task")
+                        .addOnCompleteListener { secondTask ->
                             if (secondTask.isSuccessful) {
                                 showToast(getString(R.string.auth_complete))
                                 (activity as AuthorizationActivity)
@@ -74,10 +69,5 @@ class EnterCodeFragment(
                         }
                 } else showToast(task.exception?.message.toString())
             }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _codeBinding = null
     }
 }

@@ -20,10 +20,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
 class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) {
-
-    private var _phoneBinding: FragmentEnterPhoneNumberBinding? = null
-    private val phoneBinding get() = _phoneBinding!!
-    //*TODO* переписать инициализацию binding, чтобы убрать !!
+    private lateinit var phoneBinding: FragmentEnterPhoneNumberBinding
 
     private lateinit var modulePhoneNumber: String
     private lateinit var moduleCallback: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -33,7 +30,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _phoneBinding = FragmentEnterPhoneNumberBinding.inflate(inflater, container, false)
+        phoneBinding = FragmentEnterPhoneNumberBinding.inflate(inflater, container, false)
         return phoneBinding.root
     }
 
@@ -84,10 +81,5 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
             .setCallbacks(moduleCallback)
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _phoneBinding = null
     }
 }
