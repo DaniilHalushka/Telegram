@@ -44,6 +44,9 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settingsBinding.settingsButtonChangeUsername.setOnClickListener {
             replaceParentFragment(ChangeUsernameFragment())
         }
+        settingsBinding.settingsButtonChangeInformation.setOnClickListener {
+            replaceParentFragment(ChangeInformationFragment())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

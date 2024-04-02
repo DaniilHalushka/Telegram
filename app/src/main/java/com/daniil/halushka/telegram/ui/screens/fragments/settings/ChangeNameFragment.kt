@@ -2,15 +2,11 @@ package com.daniil.halushka.telegram.ui.screens.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.FragmentChangeNameBinding
-import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
-import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
 import com.daniil.halushka.telegram.util.CHILD_FULLNAME
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
@@ -18,7 +14,7 @@ import com.daniil.halushka.telegram.util.UID
 import com.daniil.halushka.telegram.util.USER
 import com.daniil.halushka.telegram.util.showToast
 
-class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
+class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
     private lateinit var changeNameBinding: FragmentChangeNameBinding
 
     override fun onCreateView(
@@ -33,31 +29,20 @@ class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
 
     override fun onResume() {
         super.onResume()
-        setHasOptionsMenu(true)
+        initializeFullnameList()
+    }
 
+    private fun initializeFullnameList() {
         val fullNameList = USER.fullname.split(" ")
-        if (fullNameList.size > 1) {                                    //*TODO* Подумать, как написать этот if лучше
+        if (fullNameList.size > 1) {
             changeNameBinding.settingsInputName.setText(fullNameList[0])
             changeNameBinding.settingsInputSurname.setText(fullNameList[1])
         } else {
             changeNameBinding.settingsInputName.setText("")
-            changeNameBinding.settingsInputSurname.setText("")
         }
-
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_confirm_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings_confirm_change -> changeName()
-        }
-        return true
-    }
-
-    private fun changeName() {
+    override fun change() {
         val name = changeNameBinding.settingsInputName.text.toString()
         val surname = changeNameBinding.settingsInputSurname.text.toString()
 
