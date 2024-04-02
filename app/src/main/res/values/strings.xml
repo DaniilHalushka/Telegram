@@ -41,6 +41,9 @@
     <string name="settings_input_surname">Surname</string>
     <string name="settings_toast_empty_name">Name can\'t be empty!</string>
     <string name="toast_details_update">Details updated</string>
+    <string name="settings_hint_username">Username</string>
+    <string name="username_is_empty">Username is empty!</string>
+    <string name="this_user_is_exist">This user is exist!</string>
 
 
 </resources>

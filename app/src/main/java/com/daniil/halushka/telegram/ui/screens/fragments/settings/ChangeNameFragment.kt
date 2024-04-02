@@ -54,7 +54,6 @@ class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
         when (item.itemId) {
             R.id.settings_confirm_change -> changeName()
         }
-
         return true
     }
 
