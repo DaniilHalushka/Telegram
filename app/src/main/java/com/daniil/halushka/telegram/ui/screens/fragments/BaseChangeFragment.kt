@@ -5,13 +5,13 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.R
-import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
+import com.daniil.halushka.telegram.util.APP_ACTIVITY
 
 open class BaseChangeFragment(layout: Int) : Fragment(layout) {
     override fun onStart() {
         super.onStart()
         setHasOptionsMenu(true)
-        (activity as MainActivity).moduleAppDrawer.disableDrawer()
+        (APP_ACTIVITY).moduleAppDrawer.disableDrawer()
     }
 
     override fun onStop() {
@@ -19,7 +19,7 @@ open class BaseChangeFragment(layout: Int) : Fragment(layout) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_confirm_menu, menu)
+        (APP_ACTIVITY).menuInflater.inflate(R.menu.settings_confirm_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

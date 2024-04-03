@@ -59,4 +59,8 @@ dependencies {
     //Firebase
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.storage)
+
+    //Android Image Cropper
+    implementation(libs.android.image.cropper)
 }

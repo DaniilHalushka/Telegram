@@ -10,9 +10,9 @@ import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
 import com.daniil.halushka.telegram.util.CHILD_FULLNAME
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.util.UID
+import com.daniil.halushka.telegram.util.CURRENT_UID
 import com.daniil.halushka.telegram.util.USER
-import com.daniil.halushka.telegram.util.showToast
+import com.daniil.halushka.telegram.util.showFragmentToast
 
 class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
     private lateinit var changeNameBinding: FragmentChangeNameBinding
@@ -47,15 +47,15 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
         val surname = changeNameBinding.settingsInputSurname.text.toString()
 
         if (name.isEmpty()) {
-            showToast(getString(R.string.settings_toast_empty_name))
+            showFragmentToast(getString(R.string.settings_toast_empty_name))
         } else {
             val fullName = "$name $surname"
             REF_DATABASE_ROOT.child(NODE_USERS)
-                .child(UID)
+                .child(CURRENT_UID)
                 .child(CHILD_FULLNAME)
                 .setValue(fullName).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        showToast(getString(R.string.toast_details_update))
+                        showFragmentToast(getString(R.string.toast_details_update))
                         USER.fullname = fullName
                         parentFragmentManager.popBackStack()
                     }

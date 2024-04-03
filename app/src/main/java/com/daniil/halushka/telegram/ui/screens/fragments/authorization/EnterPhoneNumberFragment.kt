@@ -12,7 +12,7 @@ import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
 import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.replaceActivity
 import com.daniil.halushka.telegram.util.replaceParentFragment
-import com.daniil.halushka.telegram.util.showToast
+import com.daniil.halushka.telegram.util.showFragmentToast
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -41,11 +41,11 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
                 AUTH.signInWithCredential(credential)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            showToast(getString(R.string.auth_complete))
+                            showFragmentToast(getString(R.string.auth_complete))
                             (activity as AuthorizationActivity)
                                 .replaceActivity(MainActivity())
                         } else {
-                            showToast(task.exception?.message.toString())
+                            showFragmentToast(task.exception?.message.toString())
                         }
                     }
             }
@@ -55,7 +55,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
             }
 
             override fun onVerificationFailed(firebaseException: FirebaseException) {
-                showToast(firebaseException.message.toString())
+                showFragmentToast(firebaseException.message.toString())
             }
         }
         phoneBinding.registerNextButton.setOnClickListener {
@@ -65,7 +65,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
 
     private fun sendCode() {
         if (phoneBinding.registerInputPhoneNumber.text.toString().isEmpty()) {
-            showToast(getString(R.string.enter_phone_number))
+            showFragmentToast(getString(R.string.enter_phone_number))
         } else {
             //replaceParentFragment(EnterCodeFragment())
             authUser()

@@ -17,7 +17,7 @@ import com.daniil.halushka.telegram.util.CHILD_USERNAME
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.util.replaceActivity
-import com.daniil.halushka.telegram.util.showToast
+import com.daniil.halushka.telegram.util.showFragmentToast
 import com.google.firebase.auth.PhoneAuthProvider
 
 class EnterCodeFragment(
@@ -62,12 +62,12 @@ class EnterCodeFragment(
                         .updateChildren(dataMap)
                         .addOnCompleteListener { secondTask ->
                             if (secondTask.isSuccessful) {
-                                showToast(getString(R.string.auth_complete))
+                                showFragmentToast(getString(R.string.auth_complete))
                                 (activity as AuthorizationActivity)
                                     .replaceActivity(MainActivity())
-                            } else showToast(secondTask.exception?.message.toString())
+                            } else showFragmentToast(secondTask.exception?.message.toString())
                         }
-                } else showToast(task.exception?.message.toString())
+                } else showFragmentToast(task.exception?.message.toString())
             }
     }
 }

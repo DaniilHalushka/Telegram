@@ -1,16 +1,16 @@
 package com.daniil.halushka.telegram.ui.screens.fragments
 
 import androidx.fragment.app.Fragment
-import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
+import com.daniil.halushka.telegram.util.APP_ACTIVITY
 
 open class BaseFragment(layout: Int) : Fragment(layout) {
     override fun onStart() {
         super.onStart()
-        (activity as MainActivity).moduleAppDrawer.disableDrawer()
+        (APP_ACTIVITY).moduleAppDrawer.disableDrawer()
     }
 
     override fun onStop() {
         super.onStop()
-        (activity as MainActivity).moduleAppDrawer.enableDrawer()
+        (APP_ACTIVITY).moduleAppDrawer.enableDrawer()
     }
 }
