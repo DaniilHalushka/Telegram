@@ -8,11 +8,12 @@ import com.daniil.halushka.telegram.databinding.ActivityMainBinding
 import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
 import com.daniil.halushka.telegram.ui.screens.fragments.chat.ChatFragment
 import com.daniil.halushka.telegram.ui.screens.util.AppDrawer
+import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.util.UID
+import com.daniil.halushka.telegram.util.CURRENT_UID
 import com.daniil.halushka.telegram.util.USER
 import com.daniil.halushka.telegram.util.initializeFirebase
 import com.daniil.halushka.telegram.util.replaceActivity
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        APP_ACTIVITY = this
         initializeFields()
         initializeFunctionality()
     }
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeUser() {
-        REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
+        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
             .addListenerForSingleValueEvent(
                 AppValueEventListener {
                     USER = it.getValue(User::class.java) ?: User()
