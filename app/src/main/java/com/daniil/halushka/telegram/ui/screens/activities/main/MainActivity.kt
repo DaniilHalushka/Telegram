@@ -9,6 +9,7 @@ import com.daniil.halushka.telegram.ui.screens.fragments.chat.ChatFragment
 import com.daniil.halushka.telegram.ui.screens.util.AppDrawer
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AUTH
+import com.daniil.halushka.telegram.util.AppStates
 import com.daniil.halushka.telegram.util.initializeFirebase
 import com.daniil.halushka.telegram.util.initializeUser
 import com.daniil.halushka.telegram.util.replaceActivity
@@ -30,6 +31,16 @@ class MainActivity : AppCompatActivity() {
             initializeFields()
             initializeFunctionality()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        AppStates.updateState(AppStates.ONLINE)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        AppStates.updateState(AppStates.OFFLINE)
     }
 
     private fun initializeFields() {
