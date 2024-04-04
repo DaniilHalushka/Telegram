@@ -23,6 +23,7 @@ import com.daniil.halushka.telegram.util.CURRENT_UID
 import com.daniil.halushka.telegram.util.FOLDER_PROFILE_IMAGE
 import com.daniil.halushka.telegram.util.REF_STORAGE_ROOT
 import com.daniil.halushka.telegram.util.USER
+import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.getUrlFromStorage
 import com.daniil.halushka.telegram.util.putImageToStorage
 import com.daniil.halushka.telegram.util.putUrlToDB
@@ -69,6 +70,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settingsBinding.settingsChangeUserAvatar.setOnClickListener {
             changeUserAvatar()
         }
+        settingsBinding.settingsUserPhoto.downloadAndSetImage(USER.photoURL)
     }
 
     private fun changeUserAvatar() {
@@ -94,11 +96,12 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
             .child(CURRENT_UID)
         putImageToStorage(uriLocal, path) {
-            getUrlFromStorage(path) {
-                putUrlToDB(it) {
-                    //settingsBinding.settingsUserPhoto.downloadAndSetImage(it)
+            getUrlFromStorage(path) { url ->
+                putUrlToDB(url) {
+                    settingsBinding.settingsUserPhoto.downloadAndSetImage(url)
                     showFragmentToast(getString(R.string.toast_details_update))
-                    USER.photoUrl = it
+                    USER.photoURL = url
+                    APP_ACTIVITY.moduleAppDrawer.updateHeader()
                 }
             }
         }

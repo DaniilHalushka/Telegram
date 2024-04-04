@@ -6,11 +6,11 @@ import com.daniil.halushka.telegram.util.APP_ACTIVITY
 open class BaseFragment(layout: Int) : Fragment(layout) {
     override fun onStart() {
         super.onStart()
-        (APP_ACTIVITY).moduleAppDrawer.disableDrawer()
+        APP_ACTIVITY.moduleAppDrawer.disableDrawer()
     }
 
     override fun onStop() {
         super.onStop()
-        (APP_ACTIVITY).moduleAppDrawer.enableDrawer()
+        APP_ACTIVITY.moduleAppDrawer.enableDrawer()
     }
 }
