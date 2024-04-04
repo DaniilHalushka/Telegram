@@ -6,6 +6,6 @@ data class User(
     var fullname: String = "",
     var phone: String = "",
     var information: String = "",
-    var status: String = "",
-    var photoURL: String = "",
+    var state: String = "",
+    var photoURL: String = "empty",
 )

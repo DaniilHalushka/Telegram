@@ -57,7 +57,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private fun initializeFields() {
         settingsBinding.settingsFullName.text = USER.fullname
-        settingsBinding.settingsStatus.text = USER.status
+        settingsBinding.settingsStatus.text = USER.state
         settingsBinding.settingsPhoneNumber.text = USER.phone
         settingsBinding.settingsUsername.text = USER.username
         settingsBinding.settingsInformation.text = USER.information
