@@ -16,6 +16,7 @@ materialdrawer = "7.0.0"
 circleimageview = "3.1.0"
 firebaseAuth = "22.3.1"
 firebaseDatabaseKtx = "20.3.1"
+picasso = "2.8"
 
 [libraries]
 android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropper" }
@@ -32,6 +33,7 @@ materialdrawer = { module = "com.mikepenz:materialdrawer", version.ref = "materi
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
