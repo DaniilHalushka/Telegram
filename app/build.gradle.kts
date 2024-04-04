@@ -63,4 +63,7 @@ dependencies {
 
     //Android Image Cropper
     implementation(libs.android.image.cropper)
+
+    //Picasso
+    implementation(libs.picasso)
 }

@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.FragmentChangeNameBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
+import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.CHILD_FULLNAME
+import com.daniil.halushka.telegram.util.CURRENT_UID
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.util.CURRENT_UID
 import com.daniil.halushka.telegram.util.USER
 import com.daniil.halushka.telegram.util.showFragmentToast
 
@@ -57,6 +58,7 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
                     if (task.isSuccessful) {
                         showFragmentToast(getString(R.string.toast_details_update))
                         USER.fullname = fullName
+                        APP_ACTIVITY.moduleAppDrawer.updateHeader()
                         parentFragmentManager.popBackStack()
                     }
                 }

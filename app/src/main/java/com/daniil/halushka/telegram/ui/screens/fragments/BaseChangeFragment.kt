@@ -12,16 +12,12 @@ open class BaseChangeFragment(layout: Int) : Fragment(layout) {
     override fun onStart() {
         super.onStart()
         setHasOptionsMenu(true)
-        (APP_ACTIVITY).moduleAppDrawer.disableDrawer()
-    }
-
-    override fun onStop() {
-        super.onStop()
+        APP_ACTIVITY.moduleAppDrawer.disableDrawer()
         hideKeyboard()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (APP_ACTIVITY).menuInflater.inflate(R.menu.settings_confirm_menu, menu)
+        APP_ACTIVITY.menuInflater.inflate(R.menu.settings_confirm_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

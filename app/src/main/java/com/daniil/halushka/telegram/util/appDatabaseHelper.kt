@@ -36,21 +36,33 @@ fun initializeFirebase() {
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().getReference()
 }
 
-inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
-    path.putFile(uri)
-        .addOnSuccessListener {function()}
-        .addOnFailureListener {showToast(it.message.toString())}
+inline fun initializeUser(crossinline function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
+        .addListenerForSingleValueEvent(
+            AppValueEventListener {
+                USER = it.getValue(User::class.java) ?: User()
+
+                if (USER.username.isEmpty()) USER.username = CURRENT_UID
+                function()
+            }
+        )
 }
 
-inline fun getUrlFromStorage(path: StorageReference, crossinline function: (url:String) -> Unit) {
+inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
+    path.putFile(uri)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+inline fun getUrlFromStorage(path: StorageReference, crossinline function: (url: String) -> Unit) {
     path.downloadUrl
-        .addOnSuccessListener {function(it.toString())}
-        .addOnFailureListener {showToast(it.message.toString())}
+        .addOnSuccessListener { function(it.toString()) }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }
 
 inline fun putUrlToDB(url: String, crossinline function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
         .child(CHILD_PHOTOURL).setValue(url)
-        .addOnSuccessListener {function()}
-        .addOnFailureListener {showToast(it.message.toString())}
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }
