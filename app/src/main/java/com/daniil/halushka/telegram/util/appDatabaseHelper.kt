@@ -25,6 +25,7 @@ const val CHILD_USERNAME = "username"
 const val CHILD_FULLNAME = "fullname"
 const val CHILD_INFORMATION = "information"
 const val CHILD_PHOTOURL = "photoURL"
+const val CHILD_STATE = "state"
 
 fun initializeFirebase() {
     AUTH = FirebaseAuth.getInstance()
