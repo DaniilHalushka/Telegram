@@ -1,8 +1,11 @@
 package com.daniil.halushka.telegram.ui.screens.activities.main
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.ActivityMainBinding
 import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
 import com.daniil.halushka.telegram.ui.screens.fragments.chat.ChatFragment
@@ -10,10 +13,13 @@ import com.daniil.halushka.telegram.ui.screens.util.AppDrawer
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.AppStates
+import com.daniil.halushka.telegram.util.READ_CONTACTS
+import com.daniil.halushka.telegram.util.checkPermission
 import com.daniil.halushka.telegram.util.initializeFirebase
 import com.daniil.halushka.telegram.util.initializeUser
 import com.daniil.halushka.telegram.util.replaceActivity
 import com.daniil.halushka.telegram.util.replaceFragment
+import com.daniil.halushka.telegram.util.showToast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -28,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY = this
         initializeFirebase()
         initializeUser{
+            initializeContacts()
             initializeFields()
             initializeFunctionality()
         }
@@ -41,6 +48,13 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         AppStates.updateState(AppStates.OFFLINE)
+    }
+
+
+    private fun initializeContacts() {
+        if (checkPermission(READ_CONTACTS)) {
+            showToast(getString(R.string.read_contacts))
+        }
     }
 
     private fun initializeFields() {
@@ -58,6 +72,17 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(ChatFragment(), false)
         } else {
             replaceActivity(AuthorizationActivity())
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            initializeContacts()
         }
     }
 }
