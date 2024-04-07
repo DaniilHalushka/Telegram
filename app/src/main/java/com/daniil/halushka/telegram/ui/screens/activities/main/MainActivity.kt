@@ -18,6 +18,9 @@ import com.daniil.halushka.telegram.util.initializeFirebase
 import com.daniil.halushka.telegram.util.initializeUser
 import com.daniil.halushka.telegram.util.replaceActivity
 import com.daniil.halushka.telegram.util.replaceFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -32,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY = this
         initializeFirebase()
         initializeUser{
-            initializeContacts()
+            CoroutineScope(Dispatchers.IO).launch {
+                initializeContacts()
+            }
             initializeFields()
             initializeFunctionality()
         }
