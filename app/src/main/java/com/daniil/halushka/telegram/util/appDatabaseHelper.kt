@@ -18,6 +18,8 @@ lateinit var USER: User
 
 const val NODE_USERS = "users"
 const val NODE_USERNAMES = "usernames"
+const val NODE_PHONES = "phones"
+const val NODE_PHONES_CONTACTS = "phones_contacts"
 
 const val FOLDER_PROFILE_IMAGE = "profile_image"
 
@@ -71,9 +73,24 @@ fun initializeContacts() {
                 arrayContacts.add(newModel)
             }
         }
-
         cursor?.close()
+        updatePhonesToDatabase(arrayContacts)
     }
+}
+
+fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
+    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener{ it ->
+        it.children.forEach { dataSnapshot ->
+            arrayContacts.forEach{ contact ->
+                if(dataSnapshot.key == contact.phone) {
+                    REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
+                        .child(dataSnapshot.value.toString()).child(CHILD_ID)
+                        .setValue(dataSnapshot.value.toString())
+                        .addOnFailureListener { showToast(it.message.toString()) }
+                }
+            }
+        }
+    })
 }
 
 inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
