@@ -4,11 +4,11 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.daniil.halushka.telegram.R
+import com.daniil.halushka.telegram.ui.screens.fragments.contacts.ContactsFragment
 import com.daniil.halushka.telegram.ui.screens.fragments.settings.SettingsFragment
+import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.USER
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.replaceFragment
@@ -23,10 +23,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 
-class AppDrawer(
-    val mainActivity: AppCompatActivity,
-    private val toolbar: Toolbar
-) {
+class AppDrawer {
     private lateinit var moduleDrawer: Drawer
     private lateinit var moduleHeader: AccountHeader
     private lateinit var moduleDrawerLayout: DrawerLayout
@@ -41,18 +38,18 @@ class AppDrawer(
 
     fun disableDrawer() {
         moduleDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = false
-        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         moduleDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        toolbar.setNavigationOnClickListener {
-            mainActivity.supportFragmentManager.popBackStack()
+        APP_ACTIVITY.moduleToolbar.setNavigationOnClickListener {
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
         }
     }
 
     fun enableDrawer() {
-        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         moduleDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = true
         moduleDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        toolbar.setNavigationOnClickListener {
+        APP_ACTIVITY.moduleToolbar.setNavigationOnClickListener {
             moduleDrawer.openDrawer()
         }
     }
@@ -64,7 +61,7 @@ class AppDrawer(
             .withIcon(USER.photoURL)
             .withIdentifier(100)
         moduleHeader = AccountHeaderBuilder()
-            .withActivity(mainActivity)
+            .withActivity(APP_ACTIVITY)
             .withHeaderBackground(R.drawable.header)
             .addProfiles(moduleCurrentProfile)
             .build()
@@ -90,8 +87,8 @@ class AppDrawer(
 
     private fun createDrawer() {
         moduleDrawer = DrawerBuilder()
-            .withActivity(mainActivity)
-            .withToolbar(toolbar)
+            .withActivity(APP_ACTIVITY)
+            .withToolbar(APP_ACTIVITY.moduleToolbar)
             .withAccountHeader(moduleHeader)
             .withActionBarDrawerToggle(true)
             .withSelectedItem(-1)
@@ -157,11 +154,16 @@ class AppDrawer(
                     position: Int,
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
-                    when (position) {
-                        7 -> mainActivity.replaceFragment(SettingsFragment())
-                    }
+                    clickToItem(position)
                     return false
                 }
             }).build()
+    }
+}
+
+private fun clickToItem(position: Int) {
+    when (position) {
+        4 -> APP_ACTIVITY.replaceFragment(ContactsFragment())
+        7 -> APP_ACTIVITY.replaceFragment(SettingsFragment())
     }
 }

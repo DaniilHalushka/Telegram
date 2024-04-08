@@ -47,6 +47,8 @@
     <string name="settings_change_information">Information</string>
     <string name="something_was_wrong">Something was wrong!</string>
     <string name="read_contacts">Read contacts</string>
+    <string name="contacts_title">Contacts</string>
+    <string name="online">Online</string>
 
 
 </resources>
