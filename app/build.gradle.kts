@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.storage)
+    implementation(libs.firebaseui.firebase.ui.database)
 
     //Android Image Cropper
     implementation(libs.android.image.cropper)
