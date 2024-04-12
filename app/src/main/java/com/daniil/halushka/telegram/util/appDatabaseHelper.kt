@@ -5,6 +5,7 @@ import android.provider.ContactsContract
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.data.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -111,3 +112,6 @@ inline fun putUrlToDB(url: String, crossinline function: () -> Unit) {
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
+
+fun DataSnapshot.getCommonModel(): CommonModel =
+    this.getValue(CommonModel::class.java) ?: CommonModel()
