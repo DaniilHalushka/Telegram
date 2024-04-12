@@ -62,10 +62,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settingsBinding.settingsUsername.text = USER.username
         settingsBinding.settingsInformation.text = USER.information
         settingsBinding.settingsButtonChangeUsername.setOnClickListener {
-            replaceParentFragment(ChangeUsernameFragment())
+            replaceParentFragment(ChangeUsernameFragment(), R.id.mainDataContainer)
         }
         settingsBinding.settingsButtonChangeInformation.setOnClickListener {
-            replaceParentFragment(ChangeInformationFragment())
+            replaceParentFragment(ChangeInformationFragment(), R.id.mainDataContainer)
         }
         settingsBinding.settingsChangeUserAvatar.setOnClickListener {
             changeUserAvatar()
@@ -118,7 +118,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                 (APP_ACTIVITY).replaceActivity(AuthorizationActivity())
             }
 
-            R.id.settings_menu_change_name -> replaceParentFragment(ChangeNameFragment())
+            R.id.settings_menu_change_name -> replaceParentFragment(
+                ChangeNameFragment(),
+                R.id.mainDataContainer
+            )
         }
         return true
     }
