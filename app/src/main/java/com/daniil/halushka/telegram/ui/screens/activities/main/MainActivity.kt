@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.ActivityMainBinding
 import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
 import com.daniil.halushka.telegram.ui.screens.fragments.chat.ChatFragment
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         if (AUTH.currentUser != null) {
             setSupportActionBar(moduleToolbar)
             moduleAppDrawer.create()
-            replaceFragment(ChatFragment(), false)
+            replaceFragment(ChatFragment(), R.id.mainDataContainer, false)
         } else {
             replaceActivity(AuthorizationActivity())
         }
