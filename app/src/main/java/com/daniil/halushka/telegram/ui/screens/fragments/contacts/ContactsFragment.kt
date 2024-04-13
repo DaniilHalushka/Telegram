@@ -32,6 +32,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
     private lateinit var moduleRefContacts: DatabaseReference
     private lateinit var moduleRefUsersListener: AppValueEventListener
     private lateinit var moduleRefUsers: DatabaseReference
+    private var mapListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,6 +51,9 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
     override fun onPause() {
         super.onPause()
         moduleAdapter.stopListening()
+        mapListeners.forEach {
+            it.key.removeEventListener(it.value)
+        }
     }
 
     private fun initializeRecyclerView() {
@@ -85,6 +89,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
 
                 }
                 moduleRefUsers.addValueEventListener(moduleRefUsersListener)
+                mapListeners[moduleRefUsers] = moduleRefUsersListener
             }
         }
 
