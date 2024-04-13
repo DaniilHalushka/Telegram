@@ -26,19 +26,23 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
     this.finish()
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment, addStack: Boolean = true) {
+fun AppCompatActivity.replaceFragment(
+    fragment: Fragment,
+    dataContainer: Int,
+    addStack: Boolean = true
+) {
     if (addStack) {
         supportFragmentManager.beginTransaction()
             .addToBackStack(null)
             .replace(
-                R.id.dataContainer,
+                dataContainer,
                 fragment
             )
             .commit()
     } else {
         supportFragmentManager.beginTransaction()
             .replace(
-                R.id.dataContainer,
+                dataContainer,
                 fragment
             )
             .commit()
@@ -46,26 +50,23 @@ fun AppCompatActivity.replaceFragment(fragment: Fragment, addStack: Boolean = tr
 
 }
 
-fun Fragment.replaceParentFragment(fragment: Fragment) {
+fun Fragment.replaceParentFragment(fragment: Fragment, dataContainer: Int) {
     this.parentFragmentManager.beginTransaction()
         .addToBackStack(null)
-        .replace(
-            R.id.dataContainer,
-            fragment
-        )
+        .replace(dataContainer, fragment)
         .commit()
 }
 
 //*TODO* если метод не понадобится, то потом удалить
-fun Fragment.replaceChildFragment(fragment: Fragment) {
-    this.childFragmentManager.beginTransaction()
-        .addToBackStack(null)
-        .replace(
-            R.id.dataContainer,
-            fragment
-        )
-        .commit()
-}
+//fun Fragment.replaceChildFragment(fragment: Fragment) {
+//    this.childFragmentManager.beginTransaction()
+//        .addToBackStack(null)
+//        .replace(
+//            R.id.dataContainer,
+//            fragment
+//        )
+//        .commit()
+//}
 
 fun hideKeyboard() {
     val inputManager: InputMethodManager = APP_ACTIVITY
@@ -73,7 +74,7 @@ fun hideKeyboard() {
     inputManager.hideSoftInputFromWindow(APP_ACTIVITY.window.decorView.windowToken, 0)
 }
 
-fun ImageView.downloadAndSetImage(url: String){
+fun ImageView.downloadAndSetImage(url: String) {
     Picasso.get()
         .load(url)
         .fit()
