@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/settings_buttons"
-    android:layout_margin="@dimen/app_margin"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/contact_photo"
+        android:id="@+id/toolbar_image"
         style="@style/circle_user_image_view"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:src="@drawable/default_user"
         app:civ_circle_background_color="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,15 +20,16 @@
     <TextView
         android:id="@+id/contact_fullname"
         style="@style/normal_text"
-        android:layout_marginTop="@dimen/appPadding"
-        app:layout_constraintStart_toEndOf="@+id/contact_photo"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@+id/toolbar_image"
+        app:layout_constraintTop_toTopOf="@id/toolbar_image"
         tools:text="@string/test_username" />
 
     <TextView
         android:id="@+id/contact_status"
         style="@style/small_text"
-        app:layout_constraintStart_toEndOf="@+id/contact_photo"
+        android:textColor="@color/colorDarkAccent"
+        app:layout_constraintStart_toEndOf="@+id/toolbar_image"
         app:layout_constraintTop_toBottomOf="@+id/contact_fullname"
         tools:text="@string/online" />
 
