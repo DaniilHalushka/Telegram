@@ -20,7 +20,7 @@ import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.getCommonModel
-import com.daniil.halushka.telegram.util.replaceChildFragment
+import com.daniil.halushka.telegram.util.replaceParentFragment
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
@@ -89,13 +89,11 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                     contactsHolder.status.text = contact.state
                     contactsHolder.photo.downloadAndSetImage(contact.photoURL)
                     contactsHolder.itemView.setOnClickListener {
-                        //TODO падает приложение, не может найти view для фрагмента чатов
-                        replaceChildFragment(
+                        replaceParentFragment(
                             SingleChatFragment(contact),
-                            R.layout.fragment_single_chat
+                            R.id.mainDataContainer
                         )
                     }
-
                 }
                 moduleRefUsers.addValueEventListener(moduleRefUsersListener)
                 mapListeners[moduleRefUsers] = moduleRefUsersListener
