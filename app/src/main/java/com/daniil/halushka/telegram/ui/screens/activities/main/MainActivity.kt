@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         if (AUTH.currentUser != null) {
             setSupportActionBar(moduleToolbar)
             moduleAppDrawer.create()
-            replaceFragment(ChatFragment(), R.id.mainDataContainer, false)
+            replaceFragment(ChatFragment(), R.id.main_data_container, false)
         } else {
             replaceActivity(AuthorizationActivity())
         }
