@@ -8,7 +8,7 @@
     tools:context=".ui.screens.activities.authorization.AuthorizationActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/authorizationToolbar"
+        android:id="@+id/authorization_toolbar"
         style="@style/main_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,13 +16,13 @@
         app:titleTextAppearance="@style/ToolbarTitleText" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/authDataContainer"
+        android:id="@+id/auth_data_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/authorizationToolbar" />
+        app:layout_constraintTop_toBottomOf="@id/authorization_toolbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

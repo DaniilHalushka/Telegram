@@ -91,7 +91,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                     contactsHolder.itemView.setOnClickListener {
                         replaceParentFragment(
                             SingleChatFragment(contact),
-                            R.id.mainDataContainer
+                            R.id.main_data_container
                         )
                     }
                 }
