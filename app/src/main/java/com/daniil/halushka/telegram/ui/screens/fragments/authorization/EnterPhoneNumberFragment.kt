@@ -52,7 +52,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
 
             //*TODO* при авторизации через телефон кидало ошибку с replaceParentFragment
             override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) {
-                replaceParentFragment(EnterCodeFragment(modulePhoneNumber, id), R.id.authDataContainer)
+                replaceParentFragment(EnterCodeFragment(modulePhoneNumber, id), R.id.auth_data_container)
             }
 
             override fun onVerificationFailed(firebaseException: FirebaseException) {

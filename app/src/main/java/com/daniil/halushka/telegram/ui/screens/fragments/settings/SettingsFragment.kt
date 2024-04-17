@@ -62,10 +62,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settingsBinding.settingsUsername.text = USER.username
         settingsBinding.settingsInformation.text = USER.information
         settingsBinding.settingsButtonChangeUsername.setOnClickListener {
-            replaceParentFragment(ChangeUsernameFragment(), R.id.mainDataContainer)
+            replaceParentFragment(ChangeUsernameFragment(), R.id.main_data_container)
         }
         settingsBinding.settingsButtonChangeInformation.setOnClickListener {
-            replaceParentFragment(ChangeInformationFragment(), R.id.mainDataContainer)
+            replaceParentFragment(ChangeInformationFragment(), R.id.main_data_container)
         }
         settingsBinding.settingsChangeUserAvatar.setOnClickListener {
             changeUserAvatar()
@@ -120,7 +120,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
             R.id.settings_menu_change_name -> replaceParentFragment(
                 ChangeNameFragment(),
-                R.id.mainDataContainer
+                R.id.main_data_container
             )
         }
         return true
