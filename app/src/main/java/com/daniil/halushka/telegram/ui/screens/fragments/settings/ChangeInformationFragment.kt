@@ -8,9 +8,9 @@ import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.FragmentChangeInformationBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
 import com.daniil.halushka.telegram.util.CHILD_INFORMATION
+import com.daniil.halushka.telegram.util.CURRENT_UID
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.util.CURRENT_UID
 import com.daniil.halushka.telegram.util.USER
 import com.daniil.halushka.telegram.util.showFragmentToast
 
@@ -21,7 +21,8 @@ class ChangeInformationFragment : BaseChangeFragment(R.layout.fragment_change_in
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        changeInformationFragment = FragmentChangeInformationBinding.inflate(inflater, container, false)
+        changeInformationFragment =
+            FragmentChangeInformationBinding.inflate(inflater, container, false)
         return changeInformationFragment.root
     }
 
@@ -38,7 +39,7 @@ class ChangeInformationFragment : BaseChangeFragment(R.layout.fragment_change_in
             .child(CHILD_INFORMATION)
             .setValue(newInformation)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful){
+                if (task.isSuccessful) {
                     showFragmentToast(getString(R.string.toast_details_update))
                     USER.information = newInformation
                     parentFragmentManager.popBackStack()
