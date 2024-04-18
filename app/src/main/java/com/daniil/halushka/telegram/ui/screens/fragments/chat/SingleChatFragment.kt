@@ -52,10 +52,15 @@ class SingleChatFragment(private val contact: CommonModel) :
     }
 
     private fun initializeInfoToolbar() {
+        if (moduleReceivingUser.fullname.isEmpty()) {
+            moduleToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_fullname).text =
+                contact.fullname
+        } else moduleToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_fullname).text =
+            moduleReceivingUser.fullname
+
         moduleToolbarInfo.findViewById<ImageView>(R.id.toolbar_chat_image)
             .downloadAndSetImage(moduleReceivingUser.photoURL)
-        moduleToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_fullname).text =
-            moduleReceivingUser.fullname
+
         moduleToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_status).text =
             moduleReceivingUser.state
     }

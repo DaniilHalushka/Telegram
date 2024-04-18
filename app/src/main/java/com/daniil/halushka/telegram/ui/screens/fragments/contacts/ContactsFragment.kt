@@ -85,12 +85,15 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                 moduleRefUsersListener = AppValueEventListener {
                     val contact = it.getCommonModel()
 
-                    contactsHolder.name.text = contact.fullname
+                    if (contact.fullname.isEmpty()) {
+                        contactsHolder.name.text = commonModel.fullname
+                    } else contactsHolder.name.text = contact.fullname
+
                     contactsHolder.status.text = contact.state
                     contactsHolder.photo.downloadAndSetImage(contact.photoURL)
                     contactsHolder.itemView.setOnClickListener {
                         replaceParentFragment(
-                            SingleChatFragment(contact),
+                            SingleChatFragment(commonModel),
                             R.id.main_data_container
                         )
                     }

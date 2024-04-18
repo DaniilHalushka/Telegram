@@ -1,7 +1,6 @@
 package com.daniil.halushka.telegram.util
 
 import android.net.Uri
-import android.provider.ContactsContract
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.data.models.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -48,50 +47,33 @@ inline fun initializeUser(crossinline function: () -> Unit) {
             AppValueEventListener {
                 USER = it.getValue(UserModel::class.java) ?: UserModel()
 
-                if (USER.username.isEmpty()) USER.username = CURRENT_UID
+                if (USER.username.isEmpty()) USER.username = CHILD_USERNAME
                 function()
             }
         )
 }
 
-fun initializeContacts() {
-    if (checkPermission(READ_CONTACTS)) {
-        val arrayContacts = arrayListOf<CommonModel>()
-        val cursor = APP_ACTIVITY.contentResolver.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            null,
-            null,
-            null,
-            null
-        )
-        cursor?.let {
-            while (it.moveToNext()){
-                val fullName = it.getString(it.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME))
-                val phone = it.getString(it.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                val newModel = CommonModel()
-                newModel.fullname = fullName
-                newModel.phone = phone.replace(Regex("[\\s-]"), "")
-                arrayContacts.add(newModel)
-            }
-        }
-        cursor?.close()
-        updatePhonesToDatabase(arrayContacts)
-    }
-}
-
 fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
-    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener{ it ->
-        it.children.forEach { dataSnapshot ->
-            arrayContacts.forEach{ contact ->
-                if(dataSnapshot.key == contact.phone) {
-                    REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
-                        .child(dataSnapshot.value.toString()).child(CHILD_ID)
-                        .setValue(dataSnapshot.value.toString())
-                        .addOnFailureListener { showToast(it.message.toString()) }
+    if (AUTH.currentUser != null) {
+        REF_DATABASE_ROOT.child(NODE_PHONES)
+            .addListenerForSingleValueEvent(AppValueEventListener { it ->
+                it.children.forEach { dataSnapshot ->
+                    arrayContacts.forEach { contact ->
+                        if (dataSnapshot.key == contact.phone) {
+                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
+                                .child(dataSnapshot.value.toString()).child(CHILD_ID)
+                                .setValue(dataSnapshot.value.toString())
+                                .addOnFailureListener { showToast(it.message.toString()) }
+
+                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
+                                .child(dataSnapshot.value.toString()).child(CHILD_FULLNAME)
+                                .setValue(contact.fullname)
+                                .addOnFailureListener { showToast(it.message.toString()) }
+                        }
+                    }
                 }
-            }
-        }
-    })
+            })
+    }
 }
 
 inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
