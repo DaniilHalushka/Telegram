@@ -19,6 +19,7 @@ import com.daniil.halushka.telegram.ui.screens.activities.authorization.Authoriz
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AUTH
+import com.daniil.halushka.telegram.util.AppStates
 import com.daniil.halushka.telegram.util.CURRENT_UID
 import com.daniil.halushka.telegram.util.FOLDER_PROFILE_IMAGE
 import com.daniil.halushka.telegram.util.REF_STORAGE_ROOT
@@ -114,6 +115,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.settings_menu_exit -> {
+                AppStates.updateState(AppStates.OFFLINE)
                 AUTH.signOut()
                 (APP_ACTIVITY).replaceActivity(AuthorizationActivity())
             }
