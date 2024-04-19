@@ -33,9 +33,11 @@ fun initializeContacts() {
             null
         )
         cursor?.let {
-            while (it.moveToNext()){
-                val fullName = it.getString(it.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME))
-                val phone = it.getString(it.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            while (it.moveToNext()) {
+                val fullName =
+                    it.getString(it.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME))
+                val phone =
+                    it.getString(it.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER))
                 val newModel = CommonModel()
                 newModel.fullname = fullName
                 newModel.phone = phone.replace(Regex("[\\s-]"), "")

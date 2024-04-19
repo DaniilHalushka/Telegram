@@ -8,4 +8,9 @@ data class CommonModel(
     var information: String = "",
     var state: String = "",
     var photoURL: String = "empty",
+
+    var text: String = "",
+    var type: String = "",
+    var from: String = "",
+    var timeStamp: String = ""
 )

@@ -50,6 +50,7 @@
     <string name="contacts_title">Contacts</string>
     <string name="online">Online</string>
     <string name="message_hint">Message</string>
+    <string name="enter_message">Enter message!</string>
 
 
 </resources>
