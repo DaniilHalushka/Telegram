@@ -70,7 +70,7 @@ class ChangeUsernameFragment : BaseChangeFragment(R.layout.fragment_change_usern
         REF_DATABASE_ROOT.child(NODE_USERS)
             .child(CURRENT_UID)
             .child(CHILD_USERNAME)
-            .setValue(moduleNewUsername) //*TODO* исправить, что ключ – никнейм, а id – значение, поставить наоборот
+            .setValue(moduleNewUsername)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     showFragmentToast(getString(R.string.toast_details_update))

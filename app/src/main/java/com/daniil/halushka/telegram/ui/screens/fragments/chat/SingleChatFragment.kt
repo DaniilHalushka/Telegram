@@ -16,8 +16,11 @@ import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
+import com.daniil.halushka.telegram.util.TYPE_TEXT
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.getUserModel
+import com.daniil.halushka.telegram.util.sendMessage
+import com.daniil.halushka.telegram.util.showToast
 import com.google.firebase.database.DatabaseReference
 
 class SingleChatFragment(private val contact: CommonModel) :
@@ -49,13 +52,27 @@ class SingleChatFragment(private val contact: CommonModel) :
 
         moduleRefUsers = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
         moduleRefUsers.addValueEventListener(moduleListenerInfoToolbar)
+
+        singleChatBinding.sendMessageButton.setOnClickListener {
+            val message = singleChatBinding.chatInputMessage.text.toString()
+            if (message.isEmpty()) {
+                showToast(getString(R.string.enter_message))
+            } else sendMessage(message, contact.id, TYPE_TEXT) {
+                singleChatBinding.chatInputMessage.setText("")
+            }
+        }
     }
 
     private fun initializeInfoToolbar() {
+        if (moduleReceivingUser.fullname.isEmpty()) {
+            moduleToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_fullname).text =
+                contact.fullname
+        } else moduleToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_fullname).text =
+            moduleReceivingUser.fullname
+
         moduleToolbarInfo.findViewById<ImageView>(R.id.toolbar_chat_image)
             .downloadAndSetImage(moduleReceivingUser.photoURL)
-        moduleToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_fullname).text =
-            moduleReceivingUser.fullname
+
         moduleToolbarInfo.findViewById<TextView>(R.id.toolbar_chat_status).text =
             moduleReceivingUser.state
     }

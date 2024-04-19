@@ -13,7 +13,6 @@ import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.AppTextWatcher
 import com.daniil.halushka.telegram.util.CHILD_ID
 import com.daniil.halushka.telegram.util.CHILD_PHONE
-import com.daniil.halushka.telegram.util.CHILD_USERNAME
 import com.daniil.halushka.telegram.util.NODE_PHONES
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
@@ -58,7 +57,6 @@ class EnterCodeFragment(
                     val dataMap = mutableMapOf<String, Any>()
                     dataMap[CHILD_ID] = userId
                     dataMap[CHILD_PHONE] = phoneNumber
-                    dataMap[CHILD_USERNAME] = userId
 
                     REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber).setValue(userId)
                         .addOnFailureListener {
