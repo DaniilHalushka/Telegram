@@ -11,7 +11,7 @@ import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.databinding.ContactItemBinding
 import com.daniil.halushka.telegram.databinding.FragmentContactsBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
-import com.daniil.halushka.telegram.ui.screens.fragments.chat.SingleChatFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.chat.single_chat.SingleChatFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.CURRENT_UID
