@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 fun Fragment.showFragmentToast(message: String) {
     Toast.makeText(this.context, message, Toast.LENGTH_SHORT)
@@ -106,4 +109,10 @@ fun ImageView.downloadAndSetImage(url: String) {
         .fit()
         .placeholder(R.drawable.default_user)
         .into(this)
+}
+
+fun String.asTime(): String {
+    val time = Date(this.toLong())
+    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    return timeFormat.format(time)
 }

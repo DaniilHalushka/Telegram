@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.fragments.chat
+package com.daniil.halushka.telegram.ui.screens.fragments.chat.single_chat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.data.models.UserModel
@@ -14,10 +15,13 @@ import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
+import com.daniil.halushka.telegram.util.CURRENT_UID
+import com.daniil.halushka.telegram.util.NODE_MESSAGES
 import com.daniil.halushka.telegram.util.NODE_USERS
 import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.util.TYPE_TEXT
 import com.daniil.halushka.telegram.util.downloadAndSetImage
+import com.daniil.halushka.telegram.util.getCommonModel
 import com.daniil.halushka.telegram.util.getUserModel
 import com.daniil.halushka.telegram.util.sendMessage
 import com.daniil.halushka.telegram.util.showToast
@@ -31,6 +35,11 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var moduleToolbarInfo: View
     private lateinit var singleChatBinding: FragmentSingleChatBinding
     private lateinit var moduleRefUsers: DatabaseReference
+    private lateinit var moduleRefMessages: DatabaseReference
+    private lateinit var moduleAdapter: SingleChatAdapter
+    private lateinit var moduleRecyclerView: RecyclerView
+    private lateinit var moduleMessagesListener: AppValueEventListener
+    private var moduleListMessages = emptyList<CommonModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +51,27 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     override fun onResume() {
         super.onResume()
+        initializeToolbar()
+        initializeRecyclerView()
+    }
+
+    private fun initializeRecyclerView() {
+        moduleRecyclerView = singleChatBinding.chatRecyclerView
+        moduleAdapter = SingleChatAdapter()
+        moduleRecyclerView.adapter = moduleAdapter
+        moduleRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES)
+            .child(CURRENT_UID)
+            .child(contact.id)
+        moduleMessagesListener = AppValueEventListener { dataSnapshot ->
+            moduleListMessages = dataSnapshot.children.map { it.getCommonModel() }
+            moduleAdapter.setList(moduleListMessages)
+            moduleRecyclerView.smoothScrollToPosition(moduleAdapter.itemCount)
+        }
+
+        moduleRefMessages.addValueEventListener(moduleMessagesListener)
+    }
+
+    private fun initializeToolbar() {
         moduleToolbarInfo =
             APP_ACTIVITY.moduleToolbar.findViewById<ConstraintLayout>(R.id.toolbar_info)
         moduleToolbarInfo.visibility = View.VISIBLE
@@ -81,5 +111,6 @@ class SingleChatFragment(private val contact: CommonModel) :
         super.onPause()
         moduleToolbarInfo.visibility = View.GONE
         moduleRefUsers.removeEventListener(moduleListenerInfoToolbar)
+        moduleRefMessages.removeEventListener(moduleMessagesListener)
     }
 }
