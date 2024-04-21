@@ -14,22 +14,21 @@ import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.daniil.halushka.telegram.R
+import com.daniil.halushka.telegram.database.AUTH
+import com.daniil.halushka.telegram.database.CURRENT_UID
+import com.daniil.halushka.telegram.database.FOLDER_PROFILE_IMAGE
+import com.daniil.halushka.telegram.database.REF_STORAGE_ROOT
+import com.daniil.halushka.telegram.database.USER
+import com.daniil.halushka.telegram.database.getUrlFromStorage
+import com.daniil.halushka.telegram.database.putImageToStorage
+import com.daniil.halushka.telegram.database.putUrlToDB
 import com.daniil.halushka.telegram.databinding.FragmentSettingsBinding
-import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
-import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.AppStates
-import com.daniil.halushka.telegram.util.CURRENT_UID
-import com.daniil.halushka.telegram.util.FOLDER_PROFILE_IMAGE
-import com.daniil.halushka.telegram.util.REF_STORAGE_ROOT
-import com.daniil.halushka.telegram.util.USER
 import com.daniil.halushka.telegram.util.downloadAndSetImage
-import com.daniil.halushka.telegram.util.getUrlFromStorage
-import com.daniil.halushka.telegram.util.putImageToStorage
-import com.daniil.halushka.telegram.util.putUrlToDB
-import com.daniil.halushka.telegram.util.replaceActivity
-import com.daniil.halushka.telegram.util.replaceParentFragment
+import com.daniil.halushka.telegram.util.replaceFragment
+import com.daniil.halushka.telegram.util.restartActivity
 import com.daniil.halushka.telegram.util.showFragmentToast
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
@@ -63,10 +62,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settingsBinding.settingsUsername.text = USER.username
         settingsBinding.settingsInformation.text = USER.information
         settingsBinding.settingsButtonChangeUsername.setOnClickListener {
-            replaceParentFragment(ChangeUsernameFragment(), R.id.main_data_container)
+            replaceFragment(ChangeUsernameFragment(), R.id.main_data_container)
         }
         settingsBinding.settingsButtonChangeInformation.setOnClickListener {
-            replaceParentFragment(ChangeInformationFragment(), R.id.main_data_container)
+            replaceFragment(ChangeInformationFragment(), R.id.main_data_container)
         }
         settingsBinding.settingsChangeUserAvatar.setOnClickListener {
             changeUserAvatar()
@@ -117,10 +116,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             R.id.settings_menu_exit -> {
                 AppStates.updateState(AppStates.OFFLINE)
                 AUTH.signOut()
-                (APP_ACTIVITY).replaceActivity(AuthorizationActivity())
+                restartActivity()
             }
 
-            R.id.settings_menu_change_name -> replaceParentFragment(
+            R.id.settings_menu_change_name -> replaceFragment(
                 ChangeNameFragment(),
                 R.id.main_data_container
             )

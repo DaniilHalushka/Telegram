@@ -15,15 +15,15 @@ import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
-import com.daniil.halushka.telegram.util.CURRENT_UID
-import com.daniil.halushka.telegram.util.NODE_MESSAGES
-import com.daniil.halushka.telegram.util.NODE_USERS
-import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.util.TYPE_TEXT
+import com.daniil.halushka.telegram.database.CURRENT_UID
+import com.daniil.halushka.telegram.database.NODE_MESSAGES
+import com.daniil.halushka.telegram.database.NODE_USERS
+import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
+import com.daniil.halushka.telegram.database.TYPE_TEXT
 import com.daniil.halushka.telegram.util.downloadAndSetImage
-import com.daniil.halushka.telegram.util.getCommonModel
-import com.daniil.halushka.telegram.util.getUserModel
-import com.daniil.halushka.telegram.util.sendMessage
+import com.daniil.halushka.telegram.database.getCommonModel
+import com.daniil.halushka.telegram.database.getUserModel
+import com.daniil.halushka.telegram.database.sendMessage
 import com.daniil.halushka.telegram.util.showToast
 import com.google.firebase.database.DatabaseReference
 

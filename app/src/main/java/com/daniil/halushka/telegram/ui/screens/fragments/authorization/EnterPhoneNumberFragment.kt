@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.R
+import com.daniil.halushka.telegram.database.AUTH
 import com.daniil.halushka.telegram.databinding.FragmentEnterPhoneNumberBinding
-import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
-import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
-import com.daniil.halushka.telegram.util.AUTH
-import com.daniil.halushka.telegram.util.replaceActivity
-import com.daniil.halushka.telegram.util.replaceParentFragment
+import com.daniil.halushka.telegram.util.APP_ACTIVITY
+import com.daniil.halushka.telegram.util.replaceFragment
+import com.daniil.halushka.telegram.util.restartActivity
 import com.daniil.halushka.telegram.util.showFragmentToast
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -42,8 +41,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             showFragmentToast(getString(R.string.auth_complete))
-                            (activity as AuthorizationActivity)
-                                .replaceActivity(MainActivity())
+                            restartActivity()
                         } else {
                             showFragmentToast(task.exception?.message.toString())
                         }
@@ -52,9 +50,9 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
 
             //*TODO* при авторизации через телефон кидало ошибку с replaceParentFragment
             override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) {
-                replaceParentFragment(
+                replaceFragment(
                     EnterCodeFragment(modulePhoneNumber, id),
-                    R.id.auth_data_container
+                    R.id.main_data_container
                 )
             }
 
@@ -81,7 +79,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
         val options = PhoneAuthOptions.newBuilder(AUTH)
             .setPhoneNumber(modulePhoneNumber)
             .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(activity as AuthorizationActivity)
+            .setActivity(APP_ACTIVITY)
             .setCallbacks(moduleCallback)
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)

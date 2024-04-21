@@ -38,7 +38,8 @@
         android:src="@drawable/ic_send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
+        app:layout_constraintTop_toTopOf="@+id/chat_input_message"
+        android:contentDescription="@string/send_message_button_picture" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

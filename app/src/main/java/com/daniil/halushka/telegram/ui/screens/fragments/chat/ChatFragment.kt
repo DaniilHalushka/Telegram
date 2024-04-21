@@ -7,6 +7,7 @@ import com.daniil.halushka.telegram.util.APP_ACTIVITY
 class ChatFragment : Fragment(R.layout.fragment_chat) {
     override fun onResume() {
         super.onResume()
-        APP_ACTIVITY.title = "Chats"
+        APP_ACTIVITY.title = getString(R.string.telegram_title)
+        APP_ACTIVITY.moduleAppDrawer.enableDrawer()
     }
 }

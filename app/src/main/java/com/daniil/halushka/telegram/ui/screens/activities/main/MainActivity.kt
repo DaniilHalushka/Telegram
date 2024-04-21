@@ -6,18 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.daniil.halushka.telegram.R
+import com.daniil.halushka.telegram.database.AUTH
+import com.daniil.halushka.telegram.database.initializeFirebase
+import com.daniil.halushka.telegram.database.initializeUser
 import com.daniil.halushka.telegram.databinding.ActivityMainBinding
-import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
+import com.daniil.halushka.telegram.ui.screens.fragments.authorization.EnterPhoneNumberFragment
 import com.daniil.halushka.telegram.ui.screens.fragments.chat.ChatFragment
 import com.daniil.halushka.telegram.ui.screens.util.AppDrawer
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
-import com.daniil.halushka.telegram.util.AUTH
 import com.daniil.halushka.telegram.util.AppStates
 import com.daniil.halushka.telegram.util.READ_CONTACTS
 import com.daniil.halushka.telegram.util.initializeContacts
-import com.daniil.halushka.telegram.util.initializeFirebase
-import com.daniil.halushka.telegram.util.initializeUser
-import com.daniil.halushka.telegram.util.replaceActivity
 import com.daniil.halushka.telegram.util.replaceFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,12 +59,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeFunctionality() {
+        setSupportActionBar(moduleToolbar)
         if (AUTH.currentUser != null) {
-            setSupportActionBar(moduleToolbar)
             moduleAppDrawer.create()
             replaceFragment(ChatFragment(), R.id.main_data_container, false)
         } else {
-            replaceActivity(AuthorizationActivity())
+            replaceFragment(EnterPhoneNumberFragment(), R.id.main_data_container, false)
         }
     }
 
