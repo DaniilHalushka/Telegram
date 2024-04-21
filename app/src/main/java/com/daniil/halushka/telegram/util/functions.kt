@@ -6,10 +6,11 @@ import android.provider.ContactsContract
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
+import com.daniil.halushka.telegram.database.updatePhonesToDatabase
+import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -52,19 +53,19 @@ fun initializeContacts() {
     }
 }
 
-fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
-    val intent = Intent(this, activity::class.java)
-    startActivity(intent)
-    this.finish()
+fun restartActivity() {
+    val intent = Intent(APP_ACTIVITY, MainActivity::class.java)
+    APP_ACTIVITY.startActivity(intent)
+    APP_ACTIVITY.finish()
 }
 
-fun AppCompatActivity.replaceFragment(
+fun replaceFragment(
     fragment: Fragment,
     dataContainer: Int,
     addStack: Boolean = true
 ) {
     if (addStack) {
-        supportFragmentManager.beginTransaction()
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
             .addToBackStack(null)
             .replace(
                 dataContainer,
@@ -72,7 +73,7 @@ fun AppCompatActivity.replaceFragment(
             )
             .commit()
     } else {
-        supportFragmentManager.beginTransaction()
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
             .replace(
                 dataContainer,
                 fragment
@@ -82,12 +83,12 @@ fun AppCompatActivity.replaceFragment(
 
 }
 
-fun Fragment.replaceParentFragment(fragment: Fragment, dataContainer: Int) {
-    this.parentFragmentManager.beginTransaction()
-        .addToBackStack(null)
-        .replace(dataContainer, fragment)
-        .commit()
-}
+//fun Fragment.replaceParentFragment(fragment: Fragment, dataContainer: Int) {
+//    this.parentFragmentManager.beginTransaction()
+//        .addToBackStack(null)
+//        .replace(dataContainer, fragment)
+//        .commit()
+//}
 
 //*TODO* если метод не понадобится, то потом удалить
 //fun Fragment.replaceChildFragment(fragment: Fragment, dataContainer: Int) {

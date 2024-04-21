@@ -8,9 +8,4 @@ open class BaseFragment(layout: Int) : Fragment(layout) {
         super.onStart()
         APP_ACTIVITY.moduleAppDrawer.disableDrawer()
     }
-
-    override fun onStop() {
-        super.onStop()
-        APP_ACTIVITY.moduleAppDrawer.enableDrawer()
-    }
 }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.databinding.MessageItemBinding
-import com.daniil.halushka.telegram.util.CURRENT_UID
+import com.daniil.halushka.telegram.database.CURRENT_UID
 import com.daniil.halushka.telegram.util.asTime
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
