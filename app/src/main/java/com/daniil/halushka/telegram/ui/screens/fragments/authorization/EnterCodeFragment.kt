@@ -6,17 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.R
+import com.daniil.halushka.telegram.database.AUTH
+import com.daniil.halushka.telegram.database.CHILD_ID
+import com.daniil.halushka.telegram.database.CHILD_PHONE
+import com.daniil.halushka.telegram.database.NODE_PHONES
+import com.daniil.halushka.telegram.database.NODE_USERS
+import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.databinding.FragmentEnterCodeBinding
-import com.daniil.halushka.telegram.ui.screens.activities.authorization.AuthorizationActivity
-import com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity
-import com.daniil.halushka.telegram.util.AUTH
+import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppTextWatcher
-import com.daniil.halushka.telegram.util.CHILD_ID
-import com.daniil.halushka.telegram.util.CHILD_PHONE
-import com.daniil.halushka.telegram.util.NODE_PHONES
-import com.daniil.halushka.telegram.util.NODE_USERS
-import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.util.replaceActivity
+import com.daniil.halushka.telegram.util.restartActivity
 import com.daniil.halushka.telegram.util.showFragmentToast
 import com.daniil.halushka.telegram.util.showToast
 import com.google.firebase.auth.PhoneAuthProvider
@@ -38,7 +37,7 @@ class EnterCodeFragment(
 
     override fun onStart() {
         super.onStart()
-        (activity as AuthorizationActivity).title = phoneNumber
+        APP_ACTIVITY.title = phoneNumber
         codeBinding.registerInputCode.addTextChangedListener(AppTextWatcher {
             val string = codeBinding.registerInputCode.text.toString()
             if (string.length == 6) {
@@ -67,7 +66,7 @@ class EnterCodeFragment(
                                 .updateChildren(dataMap)
                                 .addOnSuccessListener {
                                     showFragmentToast(getString(R.string.auth_complete))
-                                    (activity as AuthorizationActivity).replaceActivity(MainActivity())
+                                    restartActivity()
                                 }
                                 .addOnFailureListener {
                                     showToast(it.message.toString())

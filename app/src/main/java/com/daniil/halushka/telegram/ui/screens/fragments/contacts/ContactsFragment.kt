@@ -8,19 +8,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
+import com.daniil.halushka.telegram.database.CURRENT_UID
+import com.daniil.halushka.telegram.database.NODE_PHONES_CONTACTS
+import com.daniil.halushka.telegram.database.NODE_USERS
+import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
+import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.databinding.ContactItemBinding
 import com.daniil.halushka.telegram.databinding.FragmentContactsBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.ui.screens.fragments.chat.single_chat.SingleChatFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
-import com.daniil.halushka.telegram.util.CURRENT_UID
-import com.daniil.halushka.telegram.util.NODE_PHONES_CONTACTS
-import com.daniil.halushka.telegram.util.NODE_USERS
-import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.util.downloadAndSetImage
-import com.daniil.halushka.telegram.util.getCommonModel
-import com.daniil.halushka.telegram.util.replaceParentFragment
+import com.daniil.halushka.telegram.util.replaceFragment
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
@@ -92,7 +92,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                     contactsHolder.status.text = contact.state
                     contactsHolder.photo.downloadAndSetImage(contact.photoURL)
                     contactsHolder.itemView.setOnClickListener {
-                        replaceParentFragment(
+                        replaceFragment(
                             SingleChatFragment(commonModel),
                             R.id.main_data_container
                         )

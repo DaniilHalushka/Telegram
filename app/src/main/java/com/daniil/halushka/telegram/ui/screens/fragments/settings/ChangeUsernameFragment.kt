@@ -8,12 +8,12 @@ import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.databinding.FragmentChangeUsernameBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
 import com.daniil.halushka.telegram.util.AppValueEventListener
-import com.daniil.halushka.telegram.util.CHILD_USERNAME
-import com.daniil.halushka.telegram.util.CURRENT_UID
-import com.daniil.halushka.telegram.util.NODE_USERNAMES
-import com.daniil.halushka.telegram.util.NODE_USERS
-import com.daniil.halushka.telegram.util.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.util.USER
+import com.daniil.halushka.telegram.database.CHILD_USERNAME
+import com.daniil.halushka.telegram.database.CURRENT_UID
+import com.daniil.halushka.telegram.database.NODE_USERNAMES
+import com.daniil.halushka.telegram.database.NODE_USERS
+import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
+import com.daniil.halushka.telegram.database.USER
 import com.daniil.halushka.telegram.util.showFragmentToast
 import java.util.Locale
 
