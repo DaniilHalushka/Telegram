@@ -80,23 +80,7 @@ fun replaceFragment(
             )
             .commit()
     }
-
 }
-
-//fun Fragment.replaceParentFragment(fragment: Fragment, dataContainer: Int) {
-//    this.parentFragmentManager.beginTransaction()
-//        .addToBackStack(null)
-//        .replace(dataContainer, fragment)
-//        .commit()
-//}
-
-//*TODO* если метод не понадобится, то потом удалить
-//fun Fragment.replaceChildFragment(fragment: Fragment, dataContainer: Int) {
-//    this.getChildFragmentManager().beginTransaction() //Поправил тут на getChildFragmentManager
-//        .addToBackStack(null)
-//        .replace(dataContainer, fragment)
-//        .commit()
-//}
 
 fun hideKeyboard() {
     val inputManager: InputMethodManager = APP_ACTIVITY

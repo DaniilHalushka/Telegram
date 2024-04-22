@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.daniil.halushka.telegram.R
+import com.daniil.halushka.telegram.database.CURRENT_UID
+import com.daniil.halushka.telegram.database.NODE_USERNAMES
+import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
+import com.daniil.halushka.telegram.database.USER
+import com.daniil.halushka.telegram.database.updateCurrentUsername
 import com.daniil.halushka.telegram.databinding.FragmentChangeUsernameBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
 import com.daniil.halushka.telegram.util.AppValueEventListener
-import com.daniil.halushka.telegram.database.CHILD_USERNAME
-import com.daniil.halushka.telegram.database.CURRENT_UID
-import com.daniil.halushka.telegram.database.NODE_USERNAMES
-import com.daniil.halushka.telegram.database.NODE_USERS
-import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.database.USER
 import com.daniil.halushka.telegram.util.showFragmentToast
 import java.util.Locale
 
@@ -61,39 +60,7 @@ class ChangeUsernameFragment : BaseChangeFragment(R.layout.fragment_change_usern
             .setValue(CURRENT_UID)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    updateCurrentUsername()
-                }
-            }
-    }
-
-    private fun updateCurrentUsername() {
-        REF_DATABASE_ROOT.child(NODE_USERS)
-            .child(CURRENT_UID)
-            .child(CHILD_USERNAME)
-            .setValue(moduleNewUsername)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    showFragmentToast(getString(R.string.toast_details_update))
-                    deleteOldUsername()
-                } else {
-                    showFragmentToast(task.exception?.message.toString())
-                }
-            }
-    }
-
-    private fun deleteOldUsername() {
-        REF_DATABASE_ROOT.child(NODE_USERNAMES)
-            .child(USER.username)
-            .removeValue()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    if (task.isSuccessful) {
-                        showFragmentToast(getString(R.string.toast_details_update))
-                        USER.username = moduleNewUsername
-                        parentFragmentManager.popBackStack()
-                    } else {
-                        showFragmentToast(task.exception?.message.toString())
-                    }
+                    updateCurrentUsername(moduleNewUsername)
                 }
             }
     }
