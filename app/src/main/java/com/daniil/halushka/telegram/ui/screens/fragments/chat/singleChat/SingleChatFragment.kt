@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.fragments.chat.single_chat
+package com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,20 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.data.models.UserModel
-import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
-import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
-import com.daniil.halushka.telegram.util.APP_ACTIVITY
-import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.database.CURRENT_UID
 import com.daniil.halushka.telegram.database.NODE_MESSAGES
 import com.daniil.halushka.telegram.database.NODE_USERS
 import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.database.TYPE_TEXT
-import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.database.getUserModel
 import com.daniil.halushka.telegram.database.sendMessage
+import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
+import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
+import com.daniil.halushka.telegram.util.APP_ACTIVITY
+import com.daniil.halushka.telegram.util.AppChildEventListener
+import com.daniil.halushka.telegram.util.AppValueEventListener
+import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.showToast
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 
 class SingleChatFragment(private val contact: CommonModel) :
@@ -38,8 +40,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var moduleRefMessages: DatabaseReference
     private lateinit var moduleAdapter: SingleChatAdapter
     private lateinit var moduleRecyclerView: RecyclerView
-    private lateinit var moduleMessagesListener: AppValueEventListener
-    private var moduleListMessages = emptyList<CommonModel>()
+    private lateinit var moduleMessagesListener: ChildEventListener
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,16 +60,19 @@ class SingleChatFragment(private val contact: CommonModel) :
         moduleRecyclerView = singleChatBinding.chatRecyclerView
         moduleAdapter = SingleChatAdapter()
         moduleRecyclerView.adapter = moduleAdapter
-        moduleRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES)
+        moduleRefMessages = REF_DATABASE_ROOT
+            .child(NODE_MESSAGES)
             .child(CURRENT_UID)
             .child(contact.id)
-        moduleMessagesListener = AppValueEventListener { dataSnapshot ->
-            moduleListMessages = dataSnapshot.children.map { it.getCommonModel() }
-            moduleAdapter.setList(moduleListMessages)
+
+        moduleMessagesListener = AppChildEventListener { snapshot ->
+            moduleAdapter.addItem(snapshot.getCommonModel())
             moduleRecyclerView.smoothScrollToPosition(moduleAdapter.itemCount)
         }
 
-        moduleRefMessages.addValueEventListener(moduleMessagesListener)
+
+
+        moduleRefMessages.addChildEventListener(moduleMessagesListener)
     }
 
     private fun initializeToolbar() {

@@ -16,11 +16,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-fun Fragment.showFragmentToast(message: String) {
-    Toast.makeText(this.context, message, Toast.LENGTH_SHORT)
-        .show()
-}
-
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT)
         .show()

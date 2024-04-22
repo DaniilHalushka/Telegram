@@ -11,7 +11,7 @@ import com.daniil.halushka.telegram.databinding.FragmentEnterPhoneNumberBinding
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.replaceFragment
 import com.daniil.halushka.telegram.util.restartActivity
-import com.daniil.halushka.telegram.util.showFragmentToast
+import com.daniil.halushka.telegram.util.showToast
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -40,10 +40,10 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
                 AUTH.signInWithCredential(credential)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            showFragmentToast(getString(R.string.auth_complete))
+                            showToast(getString(R.string.auth_complete))
                             restartActivity()
                         } else {
-                            showFragmentToast(task.exception?.message.toString())
+                            showToast(task.exception?.message.toString())
                         }
                     }
             }
@@ -57,7 +57,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
             }
 
             override fun onVerificationFailed(firebaseException: FirebaseException) {
-                showFragmentToast(firebaseException.message.toString())
+                showToast(firebaseException.message.toString())
             }
         }
         phoneBinding.registerNextButton.setOnClickListener {
@@ -67,7 +67,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
 
     private fun sendCode() {
         if (phoneBinding.registerInputPhoneNumber.text.toString().isEmpty()) {
-            showFragmentToast(getString(R.string.enter_phone_number))
+            showToast(getString(R.string.enter_phone_number))
         } else {
             //replaceParentFragment(EnterCodeFragment())
             authUser()

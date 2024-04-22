@@ -9,7 +9,7 @@ import com.daniil.halushka.telegram.database.USER
 import com.daniil.halushka.telegram.database.setNameToDatabase
 import com.daniil.halushka.telegram.databinding.FragmentChangeNameBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
-import com.daniil.halushka.telegram.util.showFragmentToast
+import com.daniil.halushka.telegram.util.showToast
 
 class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
     private lateinit var changeNameBinding: FragmentChangeNameBinding
@@ -44,7 +44,7 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
         val surname = changeNameBinding.settingsInputSurname.text.toString()
 
         if (name.isEmpty()) {
-            showFragmentToast(getString(R.string.settings_toast_empty_name))
+            showToast(getString(R.string.settings_toast_empty_name))
         } else {
             val fullName = "$name $surname"
             setNameToDatabase(fullName)

@@ -27,7 +27,7 @@
         <activity
             android:name="com.daniil.halushka.telegram.ui.screens.activities.main.MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
