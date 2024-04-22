@@ -16,7 +16,6 @@ import com.daniil.halushka.telegram.databinding.FragmentEnterCodeBinding
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppTextWatcher
 import com.daniil.halushka.telegram.util.restartActivity
-import com.daniil.halushka.telegram.util.showFragmentToast
 import com.daniil.halushka.telegram.util.showToast
 import com.google.firebase.auth.PhoneAuthProvider
 
@@ -65,14 +64,14 @@ class EnterCodeFragment(
                             REF_DATABASE_ROOT.child(NODE_USERS).child(userId)
                                 .updateChildren(dataMap)
                                 .addOnSuccessListener {
-                                    showFragmentToast(getString(R.string.auth_complete))
+                                    showToast(getString(R.string.auth_complete))
                                     restartActivity()
                                 }
                                 .addOnFailureListener {
                                     showToast(it.message.toString())
                                 }
                         }
-                } else showFragmentToast(task.exception?.message.toString())
+                } else showToast(task.exception?.message.toString())
             }
     }
 }

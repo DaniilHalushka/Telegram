@@ -13,7 +13,7 @@ import com.daniil.halushka.telegram.database.updateCurrentUsername
 import com.daniil.halushka.telegram.databinding.FragmentChangeUsernameBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
 import com.daniil.halushka.telegram.util.AppValueEventListener
-import com.daniil.halushka.telegram.util.showFragmentToast
+import com.daniil.halushka.telegram.util.showToast
 import java.util.Locale
 
 class ChangeUsernameFragment : BaseChangeFragment(R.layout.fragment_change_username) {
@@ -41,12 +41,12 @@ class ChangeUsernameFragment : BaseChangeFragment(R.layout.fragment_change_usern
             .lowercase(Locale.getDefault())
 
         if (moduleNewUsername.isEmpty()) {
-            showFragmentToast(getString(R.string.username_is_empty))
+            showToast(getString(R.string.username_is_empty))
         } else {
             REF_DATABASE_ROOT.child(NODE_USERNAMES)
                 .addListenerForSingleValueEvent(AppValueEventListener { task ->
                     if (task.hasChild(moduleNewUsername)) {
-                        showFragmentToast(getString(R.string.this_user_is_exist))
+                        showToast(getString(R.string.this_user_is_exist))
                     } else {
                         confirmChangeUsername()
                     }

@@ -29,7 +29,7 @@ import com.daniil.halushka.telegram.util.AppStates
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.replaceFragment
 import com.daniil.halushka.telegram.util.restartActivity
-import com.daniil.halushka.telegram.util.showFragmentToast
+import com.daniil.halushka.telegram.util.showToast
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
@@ -99,7 +99,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             getUrlFromStorage(path) { url ->
                 putUrlToDB(url) {
                     settingsBinding.settingsUserPhoto.downloadAndSetImage(url)
-                    showFragmentToast(getString(R.string.toast_details_update))
+                    showToast(getString(R.string.toast_details_update))
                     USER.photoURL = url
                     APP_ACTIVITY.moduleAppDrawer.updateHeader()
                 }
