@@ -11,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.database.CURRENT_UID
 import com.daniil.halushka.telegram.databinding.MessageItemBinding
-import com.daniil.halushka.telegram.util.DiffUtilCallback
 import com.daniil.halushka.telegram.util.asTime
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
-    private var moduleListMessagesCache = emptyList<CommonModel>()
+    private var moduleListMessagesCache = mutableListOf<CommonModel>()
     private lateinit var moduleDiffResult: DiffUtil.DiffResult
 
     class SingleChatHolder(itemBinding: MessageItemBinding) : ViewHolder(itemBinding.root) {
@@ -56,18 +55,25 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
         }
     }
 
-    fun addItem(item: CommonModel) {
-        val newList = mutableListOf<CommonModel>()
-        newList.addAll(moduleListMessagesCache)
+    fun addItem(
+        item: CommonModel,
+        toBottom: Boolean,
+        onSuccess: () -> Unit
+    ) {
+        if (toBottom) {
+            if (!moduleListMessagesCache.contains(item)) {
+                moduleListMessagesCache.add(item)
+                notifyItemInserted(moduleListMessagesCache.size)
+            }
+        } else {
+            if (!moduleListMessagesCache.contains(item)) {
+                moduleListMessagesCache.add(item)
+                moduleListMessagesCache.sortBy { it.timeStamp.toString() }
+                notifyItemInserted(0)
+            }
+        }
 
-        if (newList.contains(item).not()) newList.add(item)
+        onSuccess()
 
-        newList.sortBy { it.timeStamp.toString() }
-
-        moduleDiffResult =
-            DiffUtil.calculateDiff(DiffUtilCallback(moduleListMessagesCache, newList))
-        moduleDiffResult.dispatchUpdatesTo(this)
-
-        moduleListMessagesCache = newList
     }
 }
