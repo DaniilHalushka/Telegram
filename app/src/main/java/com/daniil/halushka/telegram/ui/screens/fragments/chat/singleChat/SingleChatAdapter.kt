@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.daniil.halushka.telegram.data.models.CommonModel
@@ -15,7 +14,6 @@ import com.daniil.halushka.telegram.util.asTime
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
     private var moduleListMessagesCache = mutableListOf<CommonModel>()
-    private lateinit var moduleDiffResult: DiffUtil.DiffResult
 
     class SingleChatHolder(itemBinding: MessageItemBinding) : ViewHolder(itemBinding.root) {
 
