@@ -29,7 +29,9 @@
         android:id="@+id/chat_input_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:autofillHints="Input"
         android:hint="@string/message_hint"
+        android:inputType="text"
         android:padding="@dimen/appPadding"
         android:textColor="@color/colorBlack"
         android:textColorHint="@color/colorGrey"
@@ -44,6 +46,18 @@
         android:contentDescription="@string/send_message_button_picture"
         android:padding="@dimen/appPadding"
         android:src="@drawable/ic_send"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
+
+    <ImageView
+        android:id="@+id/attach_button"
+        android:layout_width="48dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/send_message_button_picture"
+        android:padding="@dimen/appPadding"
+        android:src="@drawable/ic_attach"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
