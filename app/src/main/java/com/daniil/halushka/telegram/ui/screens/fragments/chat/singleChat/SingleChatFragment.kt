@@ -26,6 +26,7 @@ import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppChildEventListener
+import com.daniil.halushka.telegram.util.AppTextWatcher
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.showToast
@@ -67,6 +68,22 @@ class SingleChatFragment(private val contact: CommonModel) :
     private fun initializeFields() {
         moduleSwipeRefreshLayout = singleChatBinding.chatSwipeRefreshLayout
         moduleLayoutManager = LinearLayoutManager(this.context)
+        singleChatBinding.chatInputMessage.addTextChangedListener(AppTextWatcher{
+            val text = singleChatBinding.chatInputMessage.text.toString()
+            if (text.isEmpty()) {
+                singleChatBinding.sendMessageButton.visibility = View.GONE
+                singleChatBinding.attachButton.visibility = View.VISIBLE
+            } else {
+                singleChatBinding.sendMessageButton.visibility = View.VISIBLE
+                singleChatBinding.attachButton.visibility = View.GONE
+            }
+        })
+
+        singleChatBinding.attachButton.setOnClickListener { attachFile() }
+    }
+
+    private fun attachFile() {
+        TODO("Not yet implemented")
     }
 
     private fun initializeRecyclerView() {
