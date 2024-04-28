@@ -1,5 +1,6 @@
 package com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,17 +12,26 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.canhub.cropper.CropImage
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.data.models.UserModel
 import com.daniil.halushka.telegram.database.CURRENT_UID
+import com.daniil.halushka.telegram.database.FOLDER_MESSAGE_IMAGE
 import com.daniil.halushka.telegram.database.NODE_MESSAGES
 import com.daniil.halushka.telegram.database.NODE_USERS
 import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
+import com.daniil.halushka.telegram.database.REF_STORAGE_ROOT
 import com.daniil.halushka.telegram.database.TYPE_TEXT
 import com.daniil.halushka.telegram.database.getCommonModel
+import com.daniil.halushka.telegram.database.getUrlFromStorage
 import com.daniil.halushka.telegram.database.getUserModel
+import com.daniil.halushka.telegram.database.putImageToStorage
 import com.daniil.halushka.telegram.database.sendMessage
+import com.daniil.halushka.telegram.database.sendMessageAsImage
 import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
@@ -49,6 +59,11 @@ class SingleChatFragment(private val contact: CommonModel) :
     private var moduleSmoothScrollToPosition = true
     private lateinit var moduleSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var moduleLayoutManager: LinearLayoutManager
+    private val customCropImage = registerForActivityResult(CropImageContract()) {
+        if (it !is CropImage.CancelledResult) {
+            handleCropImageResult(it.uriContent.toString())
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +83,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     private fun initializeFields() {
         moduleSwipeRefreshLayout = singleChatBinding.chatSwipeRefreshLayout
         moduleLayoutManager = LinearLayoutManager(this.context)
-        singleChatBinding.chatInputMessage.addTextChangedListener(AppTextWatcher{
+        singleChatBinding.chatInputMessage.addTextChangedListener(AppTextWatcher {
             val text = singleChatBinding.chatInputMessage.text.toString()
             if (text.isEmpty()) {
                 singleChatBinding.sendMessageButton.visibility = View.GONE
@@ -83,7 +98,32 @@ class SingleChatFragment(private val contact: CommonModel) :
     }
 
     private fun attachFile() {
-        TODO("Not yet implemented")
+        fun startCameraWithoutUri(includeCamera: Boolean, includeGallery: Boolean) {
+            customCropImage.launch(
+                CropImageContractOptions(
+                    uri = null,
+                    cropImageOptions = CropImageOptions(
+                        imageSourceIncludeCamera = includeCamera,
+                        imageSourceIncludeGallery = includeGallery,
+                    ),
+                ),
+            )
+        }
+        startCameraWithoutUri(includeCamera = true, includeGallery = true)
+    }
+
+    private fun handleCropImageResult(uri: String) {
+        val uriLocal = Uri.parse(uri.replace("file:", ""))
+        val messageKey = REF_DATABASE_ROOT.child(NODE_MESSAGES)
+            .child(CURRENT_UID)
+            .child(contact.id).push().key.toString()
+        val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE)
+            .child(messageKey)
+        putImageToStorage(uriLocal, path) {
+            getUrlFromStorage(path) { url ->
+                sendMessageAsImage(contact.id, url, messageKey)
+            }
+        }
     }
 
     private fun initializeRecyclerView() {

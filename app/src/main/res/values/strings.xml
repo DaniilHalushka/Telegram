@@ -53,6 +53,7 @@
     <string name="enter_message">Enter message!</string>
     <string name="send_message_button_picture">send_message_button_picture</string>
     <string name="telegram_title">Telegram</string>
+    <string name="image_sent">Image sent</string>
 
 
 </resources>

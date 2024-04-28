@@ -55,6 +55,7 @@
         android:id="@+id/attach_button"
         android:layout_width="48dp"
         android:layout_height="0dp"
+        android:background="@color/colorAccent"
         android:contentDescription="@string/send_message_button_picture"
         android:padding="@dimen/appPadding"
         android:src="@drawable/ic_attach"
