@@ -41,7 +41,7 @@
 
     <ImageView
         android:id="@+id/send_message_button"
-        android:layout_width="48dp"
+        android:layout_width="@dimen/image_view_width"
         android:layout_height="0dp"
         android:contentDescription="@string/send_message_button_picture"
         android:padding="@dimen/appPadding"
@@ -53,7 +53,7 @@
 
     <ImageView
         android:id="@+id/attach_button"
-        android:layout_width="48dp"
+        android:layout_width="@dimen/image_view_width"
         android:layout_height="0dp"
         android:background="@color/colorAccent"
         android:contentDescription="@string/send_message_button_picture"
