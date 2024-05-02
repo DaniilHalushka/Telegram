@@ -60,6 +60,18 @@
         android:padding="@dimen/appPadding"
         android:src="@drawable/ic_attach"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/voice_message_button"
+        app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
+
+    <ImageView
+        android:id="@+id/voice_message_button"
+        android:layout_width="@dimen/image_view_width"
+        android:layout_height="0dp"
+        android:background="@color/colorAccent"
+        android:contentDescription="@string/send_message_button_picture"
+        android:padding="@dimen/appPadding"
+        android:src="@drawable/ic_voice"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
 
