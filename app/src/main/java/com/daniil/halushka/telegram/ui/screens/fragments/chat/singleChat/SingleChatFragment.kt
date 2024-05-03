@@ -3,6 +3,7 @@ package com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
@@ -38,6 +39,8 @@ import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppChildEventListener
 import com.daniil.halushka.telegram.util.AppTextWatcher
 import com.daniil.halushka.telegram.util.AppValueEventListener
+import com.daniil.halushka.telegram.util.RECORD_AUDIO
+import com.daniil.halushka.telegram.util.checkPermission
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.showToast
 import com.google.firebase.database.DatabaseReference
@@ -95,6 +98,17 @@ class SingleChatFragment(private val contact: CommonModel) :
         })
 
         singleChatBinding.attachButton.setOnClickListener { attachFile() }
+
+        singleChatBinding.voiceMessageButton.setOnTouchListener { view, event ->
+            if (checkPermission(RECORD_AUDIO)) {
+                if (event.action == MotionEvent.ACTION_DOWN) {
+                    //TODO record
+                } else if (event.action == MotionEvent.ACTION_UP){
+                    //TODO stop record
+                }
+            }
+            true
+        }
     }
 
     private fun attachFile() {
