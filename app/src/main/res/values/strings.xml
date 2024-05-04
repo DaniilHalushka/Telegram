@@ -55,6 +55,7 @@
     <string name="telegram_title">Telegram</string>
     <string name="image_sent">Image sent</string>
     <string name="chat_image">chat image</string>
+    <string name="recording">RECORDING</string>
 
 
 </resources>

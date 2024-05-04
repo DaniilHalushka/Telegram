@@ -1,5 +1,6 @@
 package com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.AbsListView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -44,6 +46,9 @@ import com.daniil.halushka.telegram.util.checkPermission
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.showToast
 import com.google.firebase.database.DatabaseReference
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SingleChatFragment(private val contact: CommonModel) :
     BaseFragment(R.layout.fragment_single_chat) {
@@ -83,31 +88,44 @@ class SingleChatFragment(private val contact: CommonModel) :
         initializeRecyclerView()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initializeFields() {
         moduleSwipeRefreshLayout = singleChatBinding.chatSwipeRefreshLayout
         moduleLayoutManager = LinearLayoutManager(this.context)
         singleChatBinding.chatInputMessage.addTextChangedListener(AppTextWatcher {
             val text = singleChatBinding.chatInputMessage.text.toString()
-            if (text.isEmpty()) {
+            if (text.isEmpty() || text == getString(R.string.recording)) {
                 singleChatBinding.sendMessageButton.visibility = View.GONE
                 singleChatBinding.attachButton.visibility = View.VISIBLE
+                singleChatBinding.voiceMessageButton.visibility = View.VISIBLE
             } else {
                 singleChatBinding.sendMessageButton.visibility = View.VISIBLE
                 singleChatBinding.attachButton.visibility = View.GONE
+                singleChatBinding.voiceMessageButton.visibility = View.GONE
             }
         })
 
         singleChatBinding.attachButton.setOnClickListener { attachFile() }
 
-        singleChatBinding.voiceMessageButton.setOnTouchListener { view, event ->
-            if (checkPermission(RECORD_AUDIO)) {
-                if (event.action == MotionEvent.ACTION_DOWN) {
+        CoroutineScope(Dispatchers.IO).launch {
+            singleChatBinding.voiceMessageButton.setOnTouchListener { view, event ->
+                if (checkPermission(RECORD_AUDIO)) {
                     //TODO record
-                } else if (event.action == MotionEvent.ACTION_UP){
-                    //TODO stop record
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        singleChatBinding.chatInputMessage.setText(getString(R.string.recording))
+                        singleChatBinding.voiceMessageButton.setColorFilter(
+                            ContextCompat.getColor(
+                                APP_ACTIVITY, R.color.colorPrimary
+                            )
+                        )
+                    } else if (event.action == MotionEvent.ACTION_UP) {
+                        //TODO stop record
+                        singleChatBinding.chatInputMessage.setText("")
+                        singleChatBinding.voiceMessageButton.colorFilter = null
+                    }
                 }
+                true
             }
-            true
         }
     }
 
