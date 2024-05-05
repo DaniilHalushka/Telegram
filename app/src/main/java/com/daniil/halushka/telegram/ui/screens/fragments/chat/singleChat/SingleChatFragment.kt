@@ -41,6 +41,7 @@ import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppChildEventListener
 import com.daniil.halushka.telegram.util.AppTextWatcher
 import com.daniil.halushka.telegram.util.AppValueEventListener
+import com.daniil.halushka.telegram.util.AppVoiceRecorder
 import com.daniil.halushka.telegram.util.RECORD_AUDIO
 import com.daniil.halushka.telegram.util.checkPermission
 import com.daniil.halushka.telegram.util.downloadAndSetImage
@@ -118,6 +119,7 @@ class SingleChatFragment(private val contact: CommonModel) :
                                 APP_ACTIVITY, R.color.colorPrimary
                             )
                         )
+                        AppVoiceRecorder.startRecord()
                     } else if (event.action == MotionEvent.ACTION_UP) {
                         //TODO stop record
                         singleChatBinding.chatInputMessage.setText("")
