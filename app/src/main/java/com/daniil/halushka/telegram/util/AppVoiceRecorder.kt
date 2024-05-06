@@ -6,7 +6,7 @@ class AppVoiceRecorder {
 
         }
 
-        fun stopRecord() {
+        fun stopRecord(onSuccess: () -> Unit) {
 
         }
 
