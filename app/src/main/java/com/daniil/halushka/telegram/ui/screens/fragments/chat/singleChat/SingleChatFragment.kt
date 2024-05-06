@@ -124,11 +124,18 @@ class SingleChatFragment(private val contact: CommonModel) :
                         //TODO stop record
                         singleChatBinding.chatInputMessage.setText("")
                         singleChatBinding.voiceMessageButton.colorFilter = null
+                        AppVoiceRecorder.stopRecord{
+                            uploadFileToStorage()
+                        }
                     }
                 }
                 true
             }
         }
+    }
+
+    private fun uploadFileToStorage() {
+        TODO("Not yet implemented")
     }
 
     private fun attachFile() {
