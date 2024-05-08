@@ -30,11 +30,13 @@ import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.database.REF_STORAGE_ROOT
 import com.daniil.halushka.telegram.database.TYPE_TEXT
 import com.daniil.halushka.telegram.database.getCommonModel
+import com.daniil.halushka.telegram.database.getMessageKey
 import com.daniil.halushka.telegram.database.getUrlFromStorage
 import com.daniil.halushka.telegram.database.getUserModel
 import com.daniil.halushka.telegram.database.putImageToStorage
 import com.daniil.halushka.telegram.database.sendMessage
 import com.daniil.halushka.telegram.database.sendMessageAsImage
+import com.daniil.halushka.telegram.database.uploadFileToStorage
 import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
@@ -63,6 +65,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var moduleAdapter: SingleChatAdapter
     private lateinit var moduleRecyclerView: RecyclerView
     private lateinit var moduleMessagesListener: AppChildEventListener
+    private lateinit var moduleAppVoiceRecorder: AppVoiceRecorder
     private var moduleCountMessages = 10
     private var moduleIsScrolling = false
     private var moduleSmoothScrollToPosition = true
@@ -91,6 +94,7 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initializeFields() {
+        moduleAppVoiceRecorder = AppVoiceRecorder()
         moduleSwipeRefreshLayout = singleChatBinding.chatSwipeRefreshLayout
         moduleLayoutManager = LinearLayoutManager(this.context)
         singleChatBinding.chatInputMessage.addTextChangedListener(AppTextWatcher {
@@ -119,23 +123,20 @@ class SingleChatFragment(private val contact: CommonModel) :
                                 APP_ACTIVITY, R.color.colorPrimary
                             )
                         )
-                        AppVoiceRecorder.startRecord()
+                        val messageKey = getMessageKey(contact.id)
+                        moduleAppVoiceRecorder.startRecord(messageKey)
                     } else if (event.action == MotionEvent.ACTION_UP) {
                         //TODO stop record
                         singleChatBinding.chatInputMessage.setText("")
                         singleChatBinding.voiceMessageButton.colorFilter = null
-                        AppVoiceRecorder.stopRecord{
-                            uploadFileToStorage()
+                        moduleAppVoiceRecorder.stopRecord { file, messageKey ->
+                            uploadFileToStorage(Uri.fromFile(file), messageKey)
                         }
                     }
                 }
                 true
             }
         }
-    }
-
-    private fun uploadFileToStorage() {
-        TODO("Not yet implemented")
     }
 
     private fun attachFile() {
@@ -155,9 +156,7 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     private fun handleCropImageResult(uri: String) {
         val uriLocal = Uri.parse(uri.replace("file:", ""))
-        val messageKey = REF_DATABASE_ROOT.child(NODE_MESSAGES)
-            .child(CURRENT_UID)
-            .child(contact.id).push().key.toString()
+        val messageKey = getMessageKey(contact.id)
         val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE)
             .child(messageKey)
         putImageToStorage(uriLocal, path) {
@@ -267,5 +266,10 @@ class SingleChatFragment(private val contact: CommonModel) :
         moduleToolbarInfo.visibility = View.GONE
         moduleRefUsers.removeEventListener(moduleListenerInfoToolbar)
         moduleRefMessages.removeEventListener(moduleMessagesListener)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        moduleAppVoiceRecorder.realiseRecorder()
     }
 }
