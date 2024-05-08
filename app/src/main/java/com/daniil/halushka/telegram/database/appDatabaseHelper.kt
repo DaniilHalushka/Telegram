@@ -197,6 +197,14 @@ fun sendMessageAsImage(receivingUserID: String, imageUrl: String, messageKey: St
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
+fun getMessageKey(id: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES)
+    .child(CURRENT_UID)
+    .child(id).push().key.toString()
+
+fun uploadFileToStorage(uri: Uri, messageKey: String) {
+    showToast("Record Ok")
+}
+
 fun DataSnapshot.getCommonModel(): CommonModel =
     this.getValue(CommonModel::class.java) ?: CommonModel()
 
