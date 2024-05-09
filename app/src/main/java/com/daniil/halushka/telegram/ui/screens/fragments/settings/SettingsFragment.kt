@@ -20,7 +20,7 @@ import com.daniil.halushka.telegram.database.FOLDER_PROFILE_IMAGE
 import com.daniil.halushka.telegram.database.REF_STORAGE_ROOT
 import com.daniil.halushka.telegram.database.USER
 import com.daniil.halushka.telegram.database.getUrlFromStorage
-import com.daniil.halushka.telegram.database.putImageToStorage
+import com.daniil.halushka.telegram.database.putFileToStorage
 import com.daniil.halushka.telegram.database.putUrlToDB
 import com.daniil.halushka.telegram.databinding.FragmentSettingsBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
@@ -95,7 +95,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         val uriLocal = Uri.parse(uri.replace("file:", ""))
         val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
             .child(CURRENT_UID)
-        putImageToStorage(uriLocal, path) {
+        putFileToStorage(uriLocal, path) {
             getUrlFromStorage(path) { url ->
                 putUrlToDB(url) {
                     settingsBinding.settingsUserPhoto.downloadAndSetImage(url)
