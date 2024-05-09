@@ -23,19 +23,14 @@ import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.data.models.UserModel
 import com.daniil.halushka.telegram.database.CURRENT_UID
-import com.daniil.halushka.telegram.database.FOLDER_MESSAGE_IMAGE
 import com.daniil.halushka.telegram.database.NODE_MESSAGES
 import com.daniil.halushka.telegram.database.NODE_USERS
 import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
-import com.daniil.halushka.telegram.database.REF_STORAGE_ROOT
 import com.daniil.halushka.telegram.database.TYPE_TEXT
 import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.database.getMessageKey
-import com.daniil.halushka.telegram.database.getUrlFromStorage
 import com.daniil.halushka.telegram.database.getUserModel
-import com.daniil.halushka.telegram.database.putImageToStorage
 import com.daniil.halushka.telegram.database.sendMessage
-import com.daniil.halushka.telegram.database.sendMessageAsImage
 import com.daniil.halushka.telegram.database.uploadFileToStorage
 import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
@@ -45,6 +40,8 @@ import com.daniil.halushka.telegram.util.AppTextWatcher
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.AppVoiceRecorder
 import com.daniil.halushka.telegram.util.RECORD_AUDIO
+import com.daniil.halushka.telegram.util.TYPE_MESSAGE_IMAGE
+import com.daniil.halushka.telegram.util.TYPE_MESSAGE_VOICE
 import com.daniil.halushka.telegram.util.checkPermission
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.showToast
@@ -130,7 +127,12 @@ class SingleChatFragment(private val contact: CommonModel) :
                         singleChatBinding.chatInputMessage.setText("")
                         singleChatBinding.voiceMessageButton.colorFilter = null
                         moduleAppVoiceRecorder.stopRecord { file, messageKey ->
-                            uploadFileToStorage(Uri.fromFile(file), messageKey)
+                            uploadFileToStorage(
+                                Uri.fromFile(file),
+                                messageKey,
+                                contact.id,
+                                TYPE_MESSAGE_VOICE
+                            )
                         }
                     }
                 }
@@ -157,14 +159,8 @@ class SingleChatFragment(private val contact: CommonModel) :
     private fun handleCropImageResult(uri: String) {
         val uriLocal = Uri.parse(uri.replace("file:", ""))
         val messageKey = getMessageKey(contact.id)
-        val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE)
-            .child(messageKey)
-        putImageToStorage(uriLocal, path) {
-            getUrlFromStorage(path) { url ->
-                sendMessageAsImage(contact.id, url, messageKey)
-                moduleSmoothScrollToPosition = true
-            }
-        }
+        uploadFileToStorage(uriLocal, messageKey, contact.id, TYPE_MESSAGE_IMAGE)
+        moduleSmoothScrollToPosition = true
     }
 
     private fun initializeRecyclerView() {
