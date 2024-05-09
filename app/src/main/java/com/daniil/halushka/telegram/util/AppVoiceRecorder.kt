@@ -5,6 +5,7 @@ import java.io.File
 
 class AppVoiceRecorder {
 
+    //TODO deprecated
     private val moduleMediaRecorder = MediaRecorder()
     private lateinit var moduleFile: File
     private lateinit var moduleMessageKey: String
