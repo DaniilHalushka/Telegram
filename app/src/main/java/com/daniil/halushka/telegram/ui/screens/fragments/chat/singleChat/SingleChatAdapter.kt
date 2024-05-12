@@ -19,6 +19,10 @@ class SingleChatAdapter : RecyclerView.Adapter<ViewHolder>() {
         return AppHolderFactory.getHolder(parent, viewType)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return moduleListMessagesCache[position].getTypeView()
+    }
+
     override fun getItemCount(): Int = moduleListMessagesCache.size
 
     override fun onBindViewHolder(singleChatHolder: ViewHolder, position: Int) {
