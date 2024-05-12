@@ -34,6 +34,7 @@ import com.daniil.halushka.telegram.database.sendMessage
 import com.daniil.halushka.telegram.database.uploadFileToStorage
 import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view.AppViewFactory
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppChildEventListener
 import com.daniil.halushka.telegram.util.AppTextWatcher
@@ -178,11 +179,11 @@ class SingleChatFragment(private val contact: CommonModel) :
         moduleMessagesListener = AppChildEventListener { snapshot ->
             val message = snapshot.getCommonModel()
             if (moduleSmoothScrollToPosition) {
-                moduleAdapter.addItemToBottom(message) {
+                moduleAdapter.addItemToBottom(AppViewFactory.getView(message)) {
                     moduleRecyclerView.smoothScrollToPosition(moduleAdapter.itemCount)
                 }
             } else {
-                moduleAdapter.addItemToTop(message) {
+                moduleAdapter.addItemToTop(AppViewFactory.getView(message)) {
                     moduleSwipeRefreshLayout.isRefreshing = false
                 }
             }
