@@ -1,6 +1,6 @@
 package com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view
 
-class ViewImageMessage(
+data class ViewImageMessage(
     override val id: String,
     override val from: String,
     override val timeStamp: String,
@@ -9,5 +9,18 @@ class ViewImageMessage(
 ) : MessageView {
     override fun getTypeView(): Int {
         return MessageView.MESSAGE_IMAGE
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return (other as MessageView).id == id
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + from.hashCode()
+        result = 31 * result + timeStamp.hashCode()
+        result = 31 * result + fileUrl.hashCode()
+        result = 31 * result + text.hashCode()
+        return result
     }
 }
