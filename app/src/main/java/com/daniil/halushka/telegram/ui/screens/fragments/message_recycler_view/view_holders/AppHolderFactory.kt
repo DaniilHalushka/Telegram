@@ -13,13 +13,13 @@ class AppHolderFactory {
                 MessageView.MESSAGE_IMAGE -> {
                     val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.message_item_image, parent, false)
-                    return HolderImageMessage(view)
+                    HolderImageMessage(view)
                 }
 
                 else -> {
                     val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.message_item_text, parent, false)
-                    return HolderTextMessage(view)
+                    HolderTextMessage(view)
                 }
             }
 
