@@ -3,6 +3,7 @@ package com.daniil.halushka.telegram.util
 import androidx.recyclerview.widget.DiffUtil
 import com.daniil.halushka.telegram.data.models.CommonModel
 
+//TODO useless
 class DiffUtilCallback(
     private val oldList: List<CommonModel>,
     private val newList: List<CommonModel>
