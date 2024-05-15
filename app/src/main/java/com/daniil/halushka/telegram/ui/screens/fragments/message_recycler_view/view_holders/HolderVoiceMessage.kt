@@ -11,7 +11,7 @@ import com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.v
 import com.daniil.halushka.telegram.util.asTime
 
 class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view) {
-    private lateinit var itemBinding: MessageItemVoiceBinding
+    private val itemBinding = MessageItemVoiceBinding.bind(view)
 
     private val blockReceivedVoiceMessage: ConstraintLayout = itemBinding.blockReceivedVoiceMessage
     private val blockUserVoiceMessage: ConstraintLayout = itemBinding.blockUserVoiceMessage

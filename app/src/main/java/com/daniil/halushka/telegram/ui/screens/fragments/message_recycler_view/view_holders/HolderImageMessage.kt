@@ -12,7 +12,7 @@ import com.daniil.halushka.telegram.util.asTime
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 
 class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view) {
-    private lateinit var itemBinding: MessageItemImageBinding
+    private val itemBinding = MessageItemImageBinding.bind(view)
 
     private val blockReceivedImageMessage: ConstraintLayout = itemBinding.blockReceivedImageMessage
     private val blockUserImageMessage: ConstraintLayout = itemBinding.blockUserImageMessage
