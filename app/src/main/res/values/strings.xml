@@ -56,6 +56,7 @@
     <string name="image_sent">Image sent</string>
     <string name="chat_image">chat image</string>
     <string name="recording">RECORDING</string>
+    <string name="play_button">play_button</string>
 
 
 </resources>
