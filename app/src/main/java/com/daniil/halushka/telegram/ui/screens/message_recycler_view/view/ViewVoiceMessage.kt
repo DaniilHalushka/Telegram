@@ -1,14 +1,14 @@
-package com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view
+package com.daniil.halushka.telegram.ui.screens.message_recycler_view.view
 
-class ViewTextMessage(
+data class ViewVoiceMessage(
     override val id: String,
     override val from: String,
     override val timeStamp: String,
-    override val fileUrl: String = "",
-    override val text: String
+    override val fileUrl: String,
+    override val text: String = ""
 ) : MessageView {
     override fun getTypeView(): Int {
-        return MessageView.MESSAGE_TEXT
+        return MessageView.MESSAGE_VOICE
     }
 
     override fun equals(other: Any?): Boolean {

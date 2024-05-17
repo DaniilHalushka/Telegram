@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view
+package com.daniil.halushka.telegram.ui.screens.message_recycler_view.view
 
 interface MessageView {
     val id: String
