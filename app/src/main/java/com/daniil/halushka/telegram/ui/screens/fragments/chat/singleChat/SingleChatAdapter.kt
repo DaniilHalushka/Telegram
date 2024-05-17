@@ -3,11 +3,9 @@ package com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view.MessageView
-import com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view_holders.AppHolderFactory
-import com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view_holders.HolderImageMessage
-import com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view_holders.HolderTextMessage
-import com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view_holders.HolderVoiceMessage
+import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.MessageView
+import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view_holders.AppHolderFactory
+import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view_holders.MessageHolder
 
 class SingleChatAdapter : RecyclerView.Adapter<ViewHolder>() {
     private var moduleListMessagesCache = mutableListOf<MessageView>()
@@ -23,25 +21,17 @@ class SingleChatAdapter : RecyclerView.Adapter<ViewHolder>() {
     override fun getItemCount(): Int = moduleListMessagesCache.size
 
     override fun onBindViewHolder(singleChatHolder: ViewHolder, position: Int) {
-        when (singleChatHolder) {
-            is HolderImageMessage -> singleChatHolder.drawMessageImage(
-                singleChatHolder,
-                moduleListMessagesCache[position]
-            )
+        (singleChatHolder as MessageHolder).drawMessage(moduleListMessagesCache[position])
+    }
 
-            is HolderTextMessage -> singleChatHolder.drawMessageText(
-                singleChatHolder,
-                moduleListMessagesCache[position]
-            )
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        (holder as MessageHolder).onAttach(moduleListMessagesCache[holder.absoluteAdapterPosition])
+        super.onViewAttachedToWindow(holder)
+    }
 
-            is HolderVoiceMessage -> singleChatHolder.drawMessageVoice(
-                singleChatHolder,
-                moduleListMessagesCache[position]
-            )
-
-            else -> {}
-        }
-
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        (holder as MessageHolder).onDetach()
+        super.onViewDetachedFromWindow(holder)
     }
 
     fun addItemToBottom(

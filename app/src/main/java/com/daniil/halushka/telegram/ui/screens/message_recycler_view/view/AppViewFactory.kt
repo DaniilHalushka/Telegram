@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.fragments.message_recycler_view.view
+package com.daniil.halushka.telegram.ui.screens.message_recycler_view.view
 
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.util.TYPE_MESSAGE_IMAGE
