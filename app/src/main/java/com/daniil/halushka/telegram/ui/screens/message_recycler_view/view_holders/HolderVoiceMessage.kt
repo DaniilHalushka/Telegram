@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.database.CURRENT_UID
 import com.daniil.halushka.telegram.databinding.MessageItemVoiceBinding
 import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.MessageView
+import com.daniil.halushka.telegram.util.AppVoicePlayer
 import com.daniil.halushka.telegram.util.asTime
 
 class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHolder {
     private val itemBinding = MessageItemVoiceBinding.bind(view)
+
+    private val moduleAppVoicePlayer = AppVoicePlayer()
 
     private val blockReceivedVoiceMessage: ConstraintLayout = itemBinding.blockReceivedVoiceMessage
     private val blockUserVoiceMessage: ConstraintLayout = itemBinding.blockUserVoiceMessage
@@ -26,12 +29,28 @@ class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
     override fun onAttach(view: MessageView) {
         if (view.from == CURRENT_UID) {
             chatUserButtonPlay.setOnClickListener {
-
+                chatUserButtonPlay.visibility = View.GONE
+                chatUserButtonStop.visibility = View.VISIBLE
+                playVoiceMessage(view){
+                    chatUserButtonPlay.visibility = View.VISIBLE
+                    chatUserButtonStop.visibility = View.GONE
+                }
             }
         } else {
             chatReceivedButtonPlay.setOnClickListener {
-
+                chatReceivedButtonPlay.visibility = View.GONE
+                chatReceivedButtonStop.visibility = View.VISIBLE
+                playVoiceMessage(view){
+                    chatReceivedButtonPlay.visibility = View.VISIBLE
+                    chatUserButtonStop.visibility = View.GONE
+                }
             }
+        }
+    }
+
+    private fun playVoiceMessage(view: MessageView, function: () -> Unit) {
+        moduleAppVoicePlayer.play(view.id, view.fileUrl) {
+
         }
     }
 
