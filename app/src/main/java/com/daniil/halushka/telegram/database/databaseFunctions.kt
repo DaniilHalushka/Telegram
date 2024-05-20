@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.File
 
 fun initializeFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -187,6 +188,17 @@ fun uploadFileToStorage(
             sendMessageAsFile(receivedID, url, messageKey, typeMessage)
         }
     }
+}
+
+fun getFileFromStorage(moduleFile: File, fileUrl: String, function: () -> Unit) {
+    val path = REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl)
+    path.getFile(moduleFile)
+        .addOnSuccessListener {
+            function()
+        }
+        .addOnFailureListener {
+            showToast(it.message.toString())
+        }
 }
 
 fun DataSnapshot.getCommonModel(): CommonModel =
