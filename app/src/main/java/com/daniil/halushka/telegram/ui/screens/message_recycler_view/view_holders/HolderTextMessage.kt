@@ -18,13 +18,9 @@ class HolderTextMessage(view: View) : RecyclerView.ViewHolder(view), MessageHold
     private val blockReceivedMessage: ConstraintLayout = itemBinding.blockReceivedMessage
     private val chatReceivedMessage: TextView = itemBinding.chatReceivedMessage
     private val chatReceivedMessageTime: TextView = itemBinding.chatReceivedMessageTime
-    override fun onAttach(view: MessageView) {
-        TODO("Not yet implemented")
-    }
+    override fun onAttach(view: MessageView) {}
 
-    override fun onDetach() {
-        TODO("Not yet implemented")
-    }
+    override fun onDetach() {}
 
     override fun drawMessage(view: MessageView) {
         if (view.from == CURRENT_UID) {

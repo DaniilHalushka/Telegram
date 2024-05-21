@@ -8,6 +8,10 @@ class AppVoicePlayer {
     private lateinit var moduleMediaPlayer: MediaPlayer
     private lateinit var moduleFile: File
 
+    fun initializeMediaPlayer() {
+        moduleMediaPlayer = MediaPlayer()
+    }
+
     fun play(messageKey: String, fileUrl: String, function: () -> Unit) {
         moduleFile = File(APP_ACTIVITY.filesDir, messageKey)
         if (moduleFile.exists() && moduleFile.length() > 0 && moduleFile.isFile) {
@@ -30,7 +34,7 @@ class AppVoicePlayer {
             moduleMediaPlayer.prepare()
             moduleMediaPlayer.start()
             moduleMediaPlayer.setOnCompletionListener {
-                stop {
+                stopPlay {
                     function()
                 }
             }
@@ -39,7 +43,7 @@ class AppVoicePlayer {
         }
     }
 
-    private fun stop(function: () -> Unit) {
+    fun stopPlay(function: () -> Unit) {
         try {
             moduleMediaPlayer.stop()
             moduleMediaPlayer.reset()
