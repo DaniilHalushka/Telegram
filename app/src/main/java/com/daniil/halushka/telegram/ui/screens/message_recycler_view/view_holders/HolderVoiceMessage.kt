@@ -22,16 +22,24 @@ class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
     private val chatReceivedVoiceMessageTime: TextView = itemBinding.chatReceivedVoiceMessageTime
 
     private val chatReceivedButtonPlay: ImageView = itemBinding.chatReceivedButtonVoicePlay
-    val chatReceivedButtonStop: ImageView = itemBinding.chatReceivedButtonVoiceStop
+    private val chatReceivedButtonStop: ImageView = itemBinding.chatReceivedButtonVoiceStop
 
     private val chatUserButtonPlay: ImageView = itemBinding.chatUserButtonVoicePlay
-    val chatUserButtonStop: ImageView = itemBinding.chatUserButtonVoiceStop
+    private val chatUserButtonStop: ImageView = itemBinding.chatUserButtonVoiceStop
     override fun onAttach(view: MessageView) {
+        moduleAppVoicePlayer.initializeMediaPlayer()
         if (view.from == CURRENT_UID) {
             chatUserButtonPlay.setOnClickListener {
                 chatUserButtonPlay.visibility = View.GONE
                 chatUserButtonStop.visibility = View.VISIBLE
-                playVoiceMessage(view){
+                chatUserButtonStop.setOnClickListener {
+                    stopPlaying {
+                        chatUserButtonStop.setOnClickListener(null)
+                        chatUserButtonPlay.visibility = View.VISIBLE
+                        chatUserButtonStop.visibility = View.GONE
+                    }
+                }
+                playVoiceMessage(view) {
                     chatUserButtonPlay.visibility = View.VISIBLE
                     chatUserButtonStop.visibility = View.GONE
                 }
@@ -40,7 +48,14 @@ class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
             chatReceivedButtonPlay.setOnClickListener {
                 chatReceivedButtonPlay.visibility = View.GONE
                 chatReceivedButtonStop.visibility = View.VISIBLE
-                playVoiceMessage(view){
+                chatReceivedButtonStop.setOnClickListener {
+                    stopPlaying {
+                        chatReceivedButtonStop.setOnClickListener(null)
+                        chatReceivedButtonPlay.visibility = View.VISIBLE
+                        chatReceivedButtonStop.visibility = View.GONE
+                    }
+                }
+                playVoiceMessage(view) {
                     chatReceivedButtonPlay.visibility = View.VISIBLE
                     chatUserButtonStop.visibility = View.GONE
                 }
@@ -50,13 +65,20 @@ class HolderVoiceMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
 
     private fun playVoiceMessage(view: MessageView, function: () -> Unit) {
         moduleAppVoicePlayer.play(view.id, view.fileUrl) {
+            function()
+        }
+    }
 
+    private fun stopPlaying(function: () -> Unit) {
+        moduleAppVoicePlayer.stopPlay {
+            function()
         }
     }
 
     override fun onDetach() {
         chatUserButtonPlay.setOnClickListener(null)
         chatReceivedButtonPlay.setOnClickListener(null)
+        moduleAppVoicePlayer.realise()
     }
 
     override fun drawMessage(view: MessageView) {

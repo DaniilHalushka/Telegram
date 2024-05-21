@@ -20,13 +20,6 @@ class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
     private val chatReceivedImage: ImageView = itemBinding.chatReceivedImage
     private val chatUserImageMessageTime: TextView = itemBinding.chatUserImageMessageTime
     private val chatReceivedImageMessageTime: TextView = itemBinding.chatReceivedImageMessageTime
-    override fun onAttach(view: MessageView) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onDetach() {
-        TODO("Not yet implemented")
-    }
 
     override fun drawMessage(view: MessageView) {
         if (view.from == CURRENT_UID) {
@@ -43,4 +36,8 @@ class HolderImageMessage(view: View) : RecyclerView.ViewHolder(view), MessageHol
                 view.timeStamp.asTime()
         }
     }
+
+    override fun onAttach(view: MessageView) {}
+
+    override fun onDetach() {}
 }

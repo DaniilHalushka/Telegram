@@ -9,6 +9,7 @@ import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view_holder
 
 class SingleChatAdapter : RecyclerView.Adapter<ViewHolder>() {
     private var moduleListMessagesCache = mutableListOf<MessageView>()
+    private var moduleListHolders = mutableListOf<MessageHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return AppHolderFactory.getHolder(parent, viewType)
@@ -26,11 +27,13 @@ class SingleChatAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         (holder as MessageHolder).onAttach(moduleListMessagesCache[holder.absoluteAdapterPosition])
+        moduleListHolders.add((holder as MessageHolder))
         super.onViewAttachedToWindow(holder)
     }
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
         (holder as MessageHolder).onDetach()
+        moduleListHolders.remove((holder as MessageHolder))
         super.onViewDetachedFromWindow(holder)
     }
 
@@ -55,5 +58,11 @@ class SingleChatAdapter : RecyclerView.Adapter<ViewHolder>() {
             notifyItemInserted(0)
         }
         onSuccess()
+    }
+
+    fun onDestroy() {
+        moduleListHolders.forEach { element ->
+            element.onDetach()
+        }
     }
 }
