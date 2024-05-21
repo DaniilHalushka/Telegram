@@ -268,5 +268,6 @@ class SingleChatFragment(private val contact: CommonModel) :
     override fun onDestroy() {
         super.onDestroy()
         moduleAppVoiceRecorder.realiseRecorder()
+        moduleAdapter.onDestroy()
     }
 }
