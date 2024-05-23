@@ -57,6 +57,8 @@
     <string name="chat_image">chat image</string>
     <string name="recording">RECORDING</string>
     <string name="play_button">play_button</string>
+    <string name="button_attach_image">button_attach_image</string>
+    <string name="button_attach_file">button_attach_file</string>
 
 
 </resources>
