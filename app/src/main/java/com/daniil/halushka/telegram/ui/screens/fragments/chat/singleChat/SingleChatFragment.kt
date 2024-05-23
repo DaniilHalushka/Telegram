@@ -1,6 +1,7 @@
 package com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +34,7 @@ import com.daniil.halushka.telegram.database.getMessageKey
 import com.daniil.halushka.telegram.database.getUserModel
 import com.daniil.halushka.telegram.database.sendMessage
 import com.daniil.halushka.telegram.database.uploadFileToStorage
+import com.daniil.halushka.telegram.databinding.ChooseUploadFileBinding
 import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
 import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.AppViewFactory
@@ -40,12 +43,15 @@ import com.daniil.halushka.telegram.util.AppChildEventListener
 import com.daniil.halushka.telegram.util.AppTextWatcher
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.AppVoiceRecorder
+import com.daniil.halushka.telegram.util.PICK_FILE_REQUEST_CODE
 import com.daniil.halushka.telegram.util.RECORD_AUDIO
+import com.daniil.halushka.telegram.util.TYPE_MESSAGE_FILE
 import com.daniil.halushka.telegram.util.TYPE_MESSAGE_IMAGE
 import com.daniil.halushka.telegram.util.TYPE_MESSAGE_VOICE
 import com.daniil.halushka.telegram.util.checkPermission
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.showToast
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -58,25 +64,54 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var moduleReceivingUser: UserModel
     private lateinit var moduleToolbarInfo: View
     private lateinit var singleChatBinding: FragmentSingleChatBinding
+    private lateinit var chooseUploadFileBinding: ChooseUploadFileBinding
+
     private lateinit var moduleRefUsers: DatabaseReference
     private lateinit var moduleRefMessages: DatabaseReference
     private lateinit var moduleAdapter: SingleChatAdapter
     private lateinit var moduleRecyclerView: RecyclerView
     private lateinit var moduleMessagesListener: AppChildEventListener
     private lateinit var moduleAppVoiceRecorder: AppVoiceRecorder
+
     private var moduleCountMessages = 10
     private var moduleIsScrolling = false
     private var moduleSmoothScrollToPosition = true
+
     private lateinit var moduleSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var moduleLayoutManager: LinearLayoutManager
+    private lateinit var moduleBottomSheetBehavior: BottomSheetBehavior<*>
+
     private val customCropImage = registerForActivityResult(CropImageContract()) {
         if (it !is CropImage.CancelledResult) {
             handleCropImageResult(it.uriContent.toString())
         }
     }
 
+    private val fileUploadResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == PICK_FILE_REQUEST_CODE) {
+                val data: Intent? = result.data
+                if (data != null) {
+                    val fileUri: Uri? = data.data
+                    val messageKey = getMessageKey(contact.id)
+                    fileUri?.let {
+                        uploadFileToStorage(
+                            it,
+                            messageKey,
+                            contact.id,
+                            TYPE_MESSAGE_FILE
+                        )
+                    }
+                    moduleSmoothScrollToPosition = true
+                }
+            } else {
+                showToast(getString(R.string.something_was_wrong))
+            }
+        }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         singleChatBinding = FragmentSingleChatBinding.inflate(inflater, container, false)
@@ -92,6 +127,12 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initializeFields() {
+        val bottomSheet: View = singleChatBinding.root.findViewById(R.id.bottom_sheet)
+        moduleBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        moduleBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        chooseUploadFileBinding = ChooseUploadFileBinding.bind(bottomSheet)
+
         moduleAppVoiceRecorder = AppVoiceRecorder()
         moduleSwipeRefreshLayout = singleChatBinding.chatSwipeRefreshLayout
         moduleLayoutManager = LinearLayoutManager(this.context)
@@ -108,12 +149,11 @@ class SingleChatFragment(private val contact: CommonModel) :
             }
         })
 
-        singleChatBinding.attachButton.setOnClickListener { attachFile() }
+        singleChatBinding.attachButton.setOnClickListener { attach() }
 
         CoroutineScope(Dispatchers.IO).launch {
-            singleChatBinding.voiceMessageButton.setOnTouchListener { view, event ->
+            singleChatBinding.voiceMessageButton.setOnTouchListener { _, event ->
                 if (checkPermission(RECORD_AUDIO)) {
-                    //TODO record
                     if (event.action == MotionEvent.ACTION_DOWN) {
                         singleChatBinding.chatInputMessage.setText(getString(R.string.recording))
                         singleChatBinding.voiceMessageButton.setColorFilter(
@@ -124,7 +164,6 @@ class SingleChatFragment(private val contact: CommonModel) :
                         val messageKey = getMessageKey(contact.id)
                         moduleAppVoiceRecorder.startRecord(messageKey)
                     } else if (event.action == MotionEvent.ACTION_UP) {
-                        //TODO stop record
                         singleChatBinding.chatInputMessage.setText("")
                         singleChatBinding.voiceMessageButton.colorFilter = null
                         moduleAppVoiceRecorder.stopRecord { file, messageKey ->
@@ -142,7 +181,19 @@ class SingleChatFragment(private val contact: CommonModel) :
         }
     }
 
+    private fun attach() {
+        moduleBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        chooseUploadFileBinding.buttonAttachFile.setOnClickListener { attachFile() }
+        chooseUploadFileBinding.buttonAttachImage.setOnClickListener { attachImage() }
+    }
+
     private fun attachFile() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"
+        fileUploadResult.launch(intent)
+    }
+
+    private fun attachImage() {
         fun startCameraWithoutUri(includeCamera: Boolean, includeGallery: Boolean) {
             customCropImage.launch(
                 CropImageContractOptions(
