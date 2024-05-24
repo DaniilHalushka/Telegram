@@ -44,13 +44,17 @@ fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
                 it.children.forEach { dataSnapshot ->
                     arrayContacts.forEach { contact ->
                         if (dataSnapshot.key == contact.phone) {
-                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
-                                .child(dataSnapshot.value.toString()).child(CHILD_ID)
+                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS)
+                                .child(CURRENT_UID)
+                                .child(dataSnapshot.value.toString())
+                                .child(CHILD_ID)
                                 .setValue(dataSnapshot.value.toString())
                                 .addOnFailureListener { showToast(it.message.toString()) }
 
-                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
-                                .child(dataSnapshot.value.toString()).child(CHILD_FULLNAME)
+                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS)
+                                .child(CURRENT_UID)
+                                .child(dataSnapshot.value.toString())
+                                .child(CHILD_FULLNAME)
                                 .setValue(contact.fullname)
                                 .addOnFailureListener { showToast(it.message.toString()) }
                         }
@@ -70,7 +74,8 @@ fun setNameToDatabase(fullName: String) {
             USER.fullname = fullName
             APP_ACTIVITY.moduleAppDrawer.updateHeader()
             APP_ACTIVITY.supportFragmentManager.popBackStack()
-        }.addOnFailureListener { showToast(it.message.toString()) }
+        }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }
 
 fun updateCurrentUsername(newUsername: String) {
@@ -81,7 +86,8 @@ fun updateCurrentUsername(newUsername: String) {
         .addOnSuccessListener {
             showToast(APP_ACTIVITY.getString(R.string.toast_details_update))
             deleteOldUsername(newUsername)
-        }.addOnFailureListener { showToast(it.message.toString()) }
+        }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }
 
 private fun deleteOldUsername(newUsername: String) {
@@ -92,7 +98,8 @@ private fun deleteOldUsername(newUsername: String) {
             showToast(APP_ACTIVITY.getString(R.string.toast_details_update))
             USER.username = newUsername
             APP_ACTIVITY.supportFragmentManager.popBackStack()
-        }.addOnFailureListener { showToast(it.message.toString()) }
+        }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }
 
 fun setInfoToDatabase(newInformation: String) {
@@ -104,7 +111,8 @@ fun setInfoToDatabase(newInformation: String) {
             showToast(APP_ACTIVITY.getString(R.string.toast_details_update))
             USER.information = newInformation
             APP_ACTIVITY.supportFragmentManager.popBackStack()
-        }.addOnFailureListener { showToast(it.message.toString()) }
+        }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }
 
 inline fun putFileToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
