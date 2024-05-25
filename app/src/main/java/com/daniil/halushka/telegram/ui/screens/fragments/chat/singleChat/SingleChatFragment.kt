@@ -50,6 +50,7 @@ import com.daniil.halushka.telegram.util.TYPE_MESSAGE_IMAGE
 import com.daniil.halushka.telegram.util.TYPE_MESSAGE_VOICE
 import com.daniil.halushka.telegram.util.checkPermission
 import com.daniil.halushka.telegram.util.downloadAndSetImage
+import com.daniil.halushka.telegram.util.getFilenameFromUri
 import com.daniil.halushka.telegram.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
@@ -94,12 +95,14 @@ class SingleChatFragment(private val contact: CommonModel) :
                 if (data != null) {
                     val fileUri: Uri? = data.data
                     val messageKey = getMessageKey(contact.id)
+                    val filename = getFilenameFromUri(fileUri)
                     fileUri?.let {
                         uploadFileToStorage(
                             it,
                             messageKey,
                             contact.id,
-                            TYPE_MESSAGE_FILE
+                            TYPE_MESSAGE_FILE,
+                            filename
                         )
                     }
                     moduleSmoothScrollToPosition = true
