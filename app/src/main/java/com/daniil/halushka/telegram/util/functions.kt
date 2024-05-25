@@ -2,7 +2,9 @@ package com.daniil.halushka.telegram.util
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.provider.ContactsContract
+import android.provider.OpenableColumns
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
@@ -95,4 +97,27 @@ fun String.asTime(): String {
     val time = Date(this.toLong())
     val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     return timeFormat.format(time)
+}
+
+fun getFilenameFromUri(fileUri: Uri?): String {
+    var result = ""
+    val cursor = fileUri?.let {
+        APP_ACTIVITY.contentResolver.query(
+            it,
+            null,
+            null,
+            null,
+            null
+        )
+    }
+    try {
+        if (cursor != null && cursor.moveToFirst()) {
+            result = cursor.getString(cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+        }
+    } catch (exception: Exception) {
+        showToast(exception.message.toString())
+    } finally {
+        cursor?.close()
+    }
+    return result
 }
