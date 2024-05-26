@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:ignore="Overdraw">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/toolbar_chat_image"
@@ -23,6 +24,7 @@
         android:textColor="@color/colorAccent"
         app:layout_constraintStart_toEndOf="@+id/toolbar_chat_image"
         app:layout_constraintTop_toTopOf="@id/toolbar_chat_image"
+        tools:ignore="TextContrastCheck"
         tools:text="@string/test_username" />
 
     <TextView
@@ -31,6 +33,7 @@
         android:textColor="@color/colorDarkAccent"
         app:layout_constraintStart_toEndOf="@+id/toolbar_chat_image"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_chat_fullname"
+        tools:ignore="TextContrastCheck"
         tools:text="@string/online" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
