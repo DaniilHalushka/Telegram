@@ -34,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/app_small_margin"
+            android:maxLines="2"
             app:layout_constraintBottom_toTopOf="@id/chat_received_file_message_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/chat_received_button_file_download"
@@ -49,6 +50,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="11:42" />
+
+        <ProgressBar
+            android:id="@+id/chat_received_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/chat_button_width"
+            android:layout_height="@dimen/chat_button_height"
+            android:layout_margin="@dimen/app_small_margin"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,6 +90,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/app_small_margin"
+            android:maxLines="2"
             app:layout_constraintBottom_toTopOf="@id/chat_user_file_message_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/chat_user_button_file_download"
@@ -94,6 +107,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="TextContrastCheck"
             tools:text="11:42" />
+
+        <ProgressBar
+            android:id="@+id/chat_user_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/chat_button_width"
+            android:layout_height="@dimen/chat_button_height"
+            android:layout_margin="@dimen/app_small_margin"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
