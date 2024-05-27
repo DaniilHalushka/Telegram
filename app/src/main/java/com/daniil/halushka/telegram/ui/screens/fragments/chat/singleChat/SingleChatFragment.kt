@@ -32,6 +32,7 @@ import com.daniil.halushka.telegram.database.TYPE_TEXT
 import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.database.getMessageKey
 import com.daniil.halushka.telegram.database.getUserModel
+import com.daniil.halushka.telegram.database.saveToMainList
 import com.daniil.halushka.telegram.database.sendMessage
 import com.daniil.halushka.telegram.database.uploadFileToStorage
 import com.daniil.halushka.telegram.databinding.ChooseUploadFileBinding
@@ -45,6 +46,7 @@ import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.AppVoiceRecorder
 import com.daniil.halushka.telegram.util.PICK_FILE_REQUEST_CODE
 import com.daniil.halushka.telegram.util.RECORD_AUDIO
+import com.daniil.halushka.telegram.util.TYPE_CHAT
 import com.daniil.halushka.telegram.util.TYPE_MESSAGE_FILE
 import com.daniil.halushka.telegram.util.TYPE_MESSAGE_IMAGE
 import com.daniil.halushka.telegram.util.TYPE_MESSAGE_VOICE
@@ -293,6 +295,7 @@ class SingleChatFragment(private val contact: CommonModel) :
             if (message.isEmpty()) {
                 showToast(getString(R.string.enter_message))
             } else sendMessage(message, contact.id, TYPE_TEXT) {
+                saveToMainList(contact.id, TYPE_CHAT)
                 singleChatBinding.chatInputMessage.setText("")
             }
         }
