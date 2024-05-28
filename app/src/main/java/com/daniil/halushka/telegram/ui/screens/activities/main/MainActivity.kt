@@ -11,7 +11,7 @@ import com.daniil.halushka.telegram.database.initializeFirebase
 import com.daniil.halushka.telegram.database.initializeUser
 import com.daniil.halushka.telegram.databinding.ActivityMainBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.authorization.EnterPhoneNumberFragment
-import com.daniil.halushka.telegram.ui.screens.fragments.chat.ChatFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.main_list.MainListFragment
 import com.daniil.halushka.telegram.ui.screens.util.AppDrawer
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppStates
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(moduleToolbar)
         if (AUTH.currentUser != null) {
             moduleAppDrawer.create()
-            replaceFragment(ChatFragment(), R.id.main_data_container, false)
+            replaceFragment(MainListFragment(), R.id.main_data_container, false)
         } else {
             replaceFragment(EnterPhoneNumberFragment(), R.id.main_data_container, false)
         }
