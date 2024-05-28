@@ -59,6 +59,8 @@
     <string name="play_button">play_button</string>
     <string name="button_attach_image">button_attach_image</string>
     <string name="button_attach_file">button_attach_file</string>
+    <string name="name_item">Name item</string>
+    <string name="last_message">Last message</string>
 
 
 </resources>
