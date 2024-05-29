@@ -61,6 +61,8 @@
     <string name="button_attach_file">button_attach_file</string>
     <string name="name_item">Name item</string>
     <string name="last_message">Last message</string>
+    <string name="clear_chat">Clear chat</string>
+    <string name="delete_chat">Delete chat</string>
 
 
 </resources>
