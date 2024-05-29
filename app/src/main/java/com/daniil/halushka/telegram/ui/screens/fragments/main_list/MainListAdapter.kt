@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.databinding.MainListItemBinding
+import com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat.SingleChatFragment
 import com.daniil.halushka.telegram.util.downloadAndSetImage
+import com.daniil.halushka.telegram.util.replaceFragment
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
@@ -25,7 +27,15 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
-        return MainListHolder(view)
+
+        val holder = MainListHolder(view)
+        holder.itemView.setOnClickListener {
+            replaceFragment(
+                SingleChatFragment(listItems[holder.absoluteAdapterPosition]),
+                R.id.main_data_container
+            )
+        }
+        return holder
     }
 
     override fun getItemCount(): Int = listItems.size
