@@ -32,6 +32,8 @@ import com.daniil.halushka.telegram.database.NODE_MESSAGES
 import com.daniil.halushka.telegram.database.NODE_USERS
 import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.database.TYPE_TEXT
+import com.daniil.halushka.telegram.database.clearChat
+import com.daniil.halushka.telegram.database.deleteChat
 import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.database.getMessageKey
 import com.daniil.halushka.telegram.database.getUserModel
@@ -41,6 +43,7 @@ import com.daniil.halushka.telegram.database.uploadFileToStorage
 import com.daniil.halushka.telegram.databinding.ChooseUploadFileBinding
 import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.main_list.MainListFragment
 import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.AppViewFactory
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppChildEventListener
@@ -56,6 +59,7 @@ import com.daniil.halushka.telegram.util.TYPE_MESSAGE_VOICE
 import com.daniil.halushka.telegram.util.checkPermission
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.getFilenameFromUri
+import com.daniil.halushka.telegram.util.replaceFragment
 import com.daniil.halushka.telegram.util.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
@@ -326,7 +330,14 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
+            R.id.menu_clear_chat -> clearChat(contact.id) {
+                showToast(getString(R.string.chat_cleared))
+                replaceFragment(MainListFragment(), R.id.main_data_container)
+            }
+            R.id.menu_delete_chat -> deleteChat(contact.id) {
+                showToast(getString(R.string.chat_deleted))
+                replaceFragment(MainListFragment(), R.id.main_data_container)
+            }
         }
         return true
     }

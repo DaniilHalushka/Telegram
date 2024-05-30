@@ -67,7 +67,12 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                         moduleRefMessages.child(model.id).limitToLast(1)
                             .addListenerForSingleValueEvent(AppValueEventListener { message ->
                                 val helpList = message.children.map { it.getCommonModel() }
-                                newModel.lastMessage = helpList[0].text
+
+                                if (helpList.isEmpty()) {
+                                    newModel.lastMessage = getString(R.string.clear_chat)
+                                } else {
+                                    newModel.lastMessage = helpList[0].text
+                                }
 
                                 if (newModel.fullname.isEmpty()) {
                                     newModel.fullname = newModel.phone

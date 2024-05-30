@@ -63,6 +63,8 @@
     <string name="last_message">Last message</string>
     <string name="clear_chat">Clear chat</string>
     <string name="delete_chat">Delete chat</string>
+    <string name="chat_deleted">Chat deleted</string>
+    <string name="chat_cleared">Chat cleared</string>
 
 
 </resources>
