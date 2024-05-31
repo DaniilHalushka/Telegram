@@ -11,7 +11,7 @@ import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.database.USER
 import com.daniil.halushka.telegram.database.updateCurrentUsername
 import com.daniil.halushka.telegram.databinding.FragmentChangeUsernameBinding
-import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseChangeFragment
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.showToast
 import java.util.Locale

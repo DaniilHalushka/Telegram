@@ -23,7 +23,7 @@ import com.daniil.halushka.telegram.database.getUrlFromStorage
 import com.daniil.halushka.telegram.database.putFileToStorage
 import com.daniil.halushka.telegram.database.putUrlToDB
 import com.daniil.halushka.telegram.databinding.FragmentSettingsBinding
-import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppStates
 import com.daniil.halushka.telegram.util.downloadAndSetImage
