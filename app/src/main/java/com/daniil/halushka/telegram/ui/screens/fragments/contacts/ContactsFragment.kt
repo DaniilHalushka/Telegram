@@ -15,7 +15,7 @@ import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.databinding.ContactItemBinding
 import com.daniil.halushka.telegram.databinding.FragmentContactsBinding
-import com.daniil.halushka.telegram.ui.screens.fragments.BaseFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseFragment
 import com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat.SingleChatFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener

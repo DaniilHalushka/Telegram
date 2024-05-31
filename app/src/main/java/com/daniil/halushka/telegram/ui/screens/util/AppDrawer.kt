@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.database.USER
 import com.daniil.halushka.telegram.ui.screens.fragments.contacts.ContactsFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.groups.AddContactsFragment
 import com.daniil.halushka.telegram.ui.screens.fragments.settings.SettingsFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.downloadAndSetImage
@@ -163,6 +164,7 @@ class AppDrawer {
 
 private fun clickToItem(position: Int) {
     when (position) {
+        1 -> replaceFragment(AddContactsFragment(), R.id.main_data_container)
         4 -> replaceFragment(ContactsFragment(), R.id.main_data_container)
         7 -> replaceFragment(SettingsFragment(), R.id.main_data_container)
     }

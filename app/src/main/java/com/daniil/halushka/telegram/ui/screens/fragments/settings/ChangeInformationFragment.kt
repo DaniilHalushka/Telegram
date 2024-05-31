@@ -8,7 +8,7 @@ import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.database.USER
 import com.daniil.halushka.telegram.database.setInfoToDatabase
 import com.daniil.halushka.telegram.databinding.FragmentChangeInformationBinding
-import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseChangeFragment
 
 class ChangeInformationFragment : BaseChangeFragment(R.layout.fragment_change_information) {
     private lateinit var changeInformationFragment: FragmentChangeInformationBinding

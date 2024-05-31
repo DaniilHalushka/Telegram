@@ -8,7 +8,7 @@ import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.database.USER
 import com.daniil.halushka.telegram.database.setNameToDatabase
 import com.daniil.halushka.telegram.databinding.FragmentChangeNameBinding
-import com.daniil.halushka.telegram.ui.screens.fragments.BaseChangeFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseChangeFragment
 import com.daniil.halushka.telegram.util.showToast
 
 class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
