@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.fragments
+package com.daniil.halushka.telegram.ui.screens.fragments.base
 
 import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
