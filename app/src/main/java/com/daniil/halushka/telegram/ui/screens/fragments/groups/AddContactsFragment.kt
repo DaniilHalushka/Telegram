@@ -18,6 +18,7 @@ import com.daniil.halushka.telegram.databinding.FragmentAddContactsBinding
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.hideKeyboard
+import com.daniil.halushka.telegram.util.replaceFragment
 
 class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
     private lateinit var addContactsFragmentBinding: FragmentAddContactsBinding
@@ -47,10 +48,7 @@ class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
         hideKeyboard()
         initializeRecyclerView()
         addContactsFragmentBinding.addContactsNextButton.setOnClickListener {
-            //TODO это для проверки
-            listContacts.forEach {
-                println(it.id)
-            }
+            replaceFragment(CreateGroupFragment(listContacts), R.id.main_data_container)
         }
     }
 
