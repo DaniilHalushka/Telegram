@@ -36,6 +36,7 @@
     <string name="enter_phone_number">Enter phone number</string>
     <string name="ok">OK</string>
     <string name="auth_complete">Authorization complete, you are welcome!</string>
+
     <string name="auth_phone_hint">Enter your phone number</string>
     <string name="settings_input_name">Name</string>
     <string name="settings_input_surname">Surname</string>
@@ -66,6 +67,7 @@
     <string name="chat_deleted">Chat deleted</string>
     <string name="chat_cleared">Chat cleared</string>
     <string name="add_people_to_chat">Add people to chat</string>
+    <string name="information_about_chat">Information about chat</string>
 
 
 </resources>
