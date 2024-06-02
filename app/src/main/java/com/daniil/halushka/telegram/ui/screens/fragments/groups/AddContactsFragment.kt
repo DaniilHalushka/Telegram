@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
@@ -15,12 +14,14 @@ import com.daniil.halushka.telegram.database.NODE_USERS
 import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.databinding.FragmentAddContactsBinding
+import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
 import com.daniil.halushka.telegram.util.hideKeyboard
 import com.daniil.halushka.telegram.util.replaceFragment
+import com.daniil.halushka.telegram.util.showToast
 
-class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
+class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
     private lateinit var addContactsFragmentBinding: FragmentAddContactsBinding
 
     private lateinit var moduleRecyclerView: RecyclerView
@@ -42,13 +43,14 @@ class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
     }
 
     override fun onResume() {
+        listContacts.clear()
         super.onResume()
         APP_ACTIVITY.title = getString(R.string.add_people_to_chat)
-        APP_ACTIVITY.moduleAppDrawer.enableDrawer()
         hideKeyboard()
         initializeRecyclerView()
         addContactsFragmentBinding.addContactsNextButton.setOnClickListener {
-            replaceFragment(CreateGroupFragment(listContacts), R.id.main_data_container)
+            if (listContacts.isEmpty()) showToast(getString(R.string.add_members_to_chat))
+            else replaceFragment(CreateGroupFragment(listContacts), R.id.main_data_container)
         }
     }
 
@@ -92,6 +94,5 @@ class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
 
     companion object {
         val listContacts = mutableListOf<CommonModel>()
-
     }
 }
