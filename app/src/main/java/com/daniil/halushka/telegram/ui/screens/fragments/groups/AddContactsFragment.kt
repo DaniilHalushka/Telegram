@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.database.CURRENT_UID
-import com.daniil.halushka.telegram.database.NODE_MAIN_LIST
 import com.daniil.halushka.telegram.database.NODE_MESSAGES
+import com.daniil.halushka.telegram.database.NODE_PHONES_CONTACTS
 import com.daniil.halushka.telegram.database.NODE_USERS
 import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.database.getCommonModel
@@ -27,7 +27,8 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
     private lateinit var moduleRecyclerView: RecyclerView
     private lateinit var moduleAdapter: AddContactsAdapter
 
-    private val moduleRefMainList = REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(CURRENT_UID)
+    private val moduleRefContactsList =
+        REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
     private val moduleRefUsers = REF_DATABASE_ROOT.child(NODE_USERS)
     private val moduleRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
 
@@ -58,11 +59,9 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
         moduleRecyclerView = addContactsFragmentBinding.addContactsRecyclerView
         moduleAdapter = AddContactsAdapter()
 
-        moduleRefMainList.addListenerForSingleValueEvent(AppValueEventListener { items ->
+        moduleRefContactsList.addListenerForSingleValueEvent(AppValueEventListener { items ->
 
-            moduleListItems = items.children.map { child ->
-                child.getCommonModel()
-            }
+            moduleListItems = items.children.map { child -> child.getCommonModel() }
 
             moduleListItems.forEach { model ->
 
