@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.database.CURRENT_UID
+import com.daniil.halushka.telegram.database.NODE_GROUPS
 import com.daniil.halushka.telegram.database.NODE_MAIN_LIST
 import com.daniil.halushka.telegram.database.NODE_MESSAGES
 import com.daniil.halushka.telegram.database.NODE_USERS
@@ -17,6 +18,8 @@ import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.databinding.FragmentMainListBinding
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
+import com.daniil.halushka.telegram.util.TYPE_CHAT
+import com.daniil.halushka.telegram.util.TYPE_GROUP
 import com.daniil.halushka.telegram.util.hideKeyboard
 
 class MainListFragment : Fragment(R.layout.fragment_main_list) {
@@ -59,30 +62,56 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
             }
 
             moduleListItems.forEach { model ->
-
-                moduleRefUsers.child(model.id)
-                    .addListenerForSingleValueEvent(AppValueEventListener { user ->
-
-                        val newModel = user.getCommonModel()
-                        moduleRefMessages.child(model.id).limitToLast(1)
-                            .addListenerForSingleValueEvent(AppValueEventListener { message ->
-                                val helpList = message.children.map { it.getCommonModel() }
-
-                                if (helpList.isEmpty()) {
-                                    newModel.lastMessage = getString(R.string.clear_chat)
-                                } else {
-                                    newModel.lastMessage = helpList[0].text
-                                }
-
-                                if (newModel.fullname.isEmpty()) {
-                                    newModel.fullname = newModel.phone
-                                }
-                                moduleAdapter.updateListItems(newModel)
-                            })
-                    })
+                when (model.type) {
+                    TYPE_CHAT -> showChat(model)
+                    TYPE_GROUP -> showGroup(model)
+                }
             }
         })
 
         moduleRecyclerView.adapter = moduleAdapter
+    }
+
+    private fun showGroup(model: CommonModel) {
+        REF_DATABASE_ROOT.child(NODE_GROUPS).child(model.id)
+            .addListenerForSingleValueEvent(AppValueEventListener { user ->
+
+                val newModel = user.getCommonModel()
+                REF_DATABASE_ROOT.child(NODE_GROUPS).child(model.id).child(NODE_MESSAGES)
+                    .limitToLast(1)
+                    .addListenerForSingleValueEvent(AppValueEventListener { message ->
+                        val helpList = message.children.map { it.getCommonModel() }
+
+                        if (helpList.isEmpty()) {
+                            newModel.lastMessage = getString(R.string.clear_chat)
+                        } else {
+                            newModel.lastMessage = helpList[0].text
+                        }
+                        moduleAdapter.updateListItems(newModel)
+                    })
+            })
+    }
+
+    private fun showChat(model: CommonModel) {
+        moduleRefUsers.child(model.id)
+            .addListenerForSingleValueEvent(AppValueEventListener { user ->
+
+                val newModel = user.getCommonModel()
+                moduleRefMessages.child(model.id).limitToLast(1)
+                    .addListenerForSingleValueEvent(AppValueEventListener { message ->
+                        val helpList = message.children.map { it.getCommonModel() }
+
+                        if (helpList.isEmpty()) {
+                            newModel.lastMessage = getString(R.string.clear_chat)
+                        } else {
+                            newModel.lastMessage = helpList[0].text
+                        }
+
+                        if (newModel.fullname.isEmpty()) {
+                            newModel.fullname = newModel.phone
+                        }
+                        moduleAdapter.updateListItems(newModel)
+                    })
+            })
     }
 }
