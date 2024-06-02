@@ -6,6 +6,7 @@ import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.data.models.UserModel
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppValueEventListener
+import com.daniil.halushka.telegram.util.TYPE_GROUP
 import com.daniil.halushka.telegram.util.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -253,7 +254,6 @@ fun deleteChat(id: String, function: () -> Unit) {
     }
 }
 
-
 fun createGroupInDatabase(
     nameGroup: String,
     uri: Uri,
@@ -267,6 +267,7 @@ fun createGroupInDatabase(
     val mapData = hashMapOf<String, Any>()
     mapData[CHILD_ID] = keyGroup
     mapData[CHILD_FULLNAME] = nameGroup
+    mapData[CHILD_PHOTOURL] = "empty"
 
     val mapMembers = hashMapOf<String, Any>()
     listContacts.forEach { contact ->
@@ -277,15 +278,41 @@ fun createGroupInDatabase(
     mapData[NODE_MEMBERS] = mapMembers
     path.updateChildren(mapData)
         .addOnSuccessListener {
-            function()
             if (uri != Uri.EMPTY) {
                 putFileToStorage(uri, pathStorage) {
                     getUrlFromStorage(pathStorage) { url ->
-                        path.child(CHILD_FILE_URL).setValue(url)
+                        path.child(CHILD_PHOTOURL).setValue(url)
+                        addGroupToMainList(mapData, listContacts) {
+                            function()
+                        }
                     }
+                }
+            } else {
+                addGroupToMainList(mapData, listContacts) {
+                    function()
                 }
             }
         }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun addGroupToMainList(
+    mapData: HashMap<String, Any>,
+    listContacts: List<CommonModel>,
+    function: () -> Unit
+) {
+    val path = REF_DATABASE_ROOT.child(NODE_MAIN_LIST)
+    val map = hashMapOf<String, Any>()
+
+    map[CHILD_ID] = mapData[CHILD_ID].toString()
+    map[CHILD_TYPE] = TYPE_GROUP
+
+    listContacts.forEach { contact ->
+        path.child(contact.id).child(map[CHILD_ID].toString()).updateChildren(map)
+    }
+
+    path.child(CURRENT_UID).child(map[CHILD_ID].toString()).updateChildren(map)
+        .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
