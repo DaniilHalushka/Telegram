@@ -68,6 +68,11 @@
     <string name="chat_cleared">Chat cleared</string>
     <string name="add_people_to_chat">Add people to chat</string>
     <string name="information_about_chat">Information about chat</string>
+    <string name="add_members_to_chat">Add members to chat!</string>
 
 
+    <plurals name="count_members">
+        <item quantity="one">%d member</item>
+        <item quantity="many">%d members</item>
+    </plurals>
 </resources>
