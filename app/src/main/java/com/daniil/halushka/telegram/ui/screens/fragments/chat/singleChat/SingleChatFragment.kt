@@ -334,6 +334,7 @@ class SingleChatFragment(private val contact: CommonModel) :
                 showToast(getString(R.string.chat_cleared))
                 replaceFragment(MainListFragment(), R.id.main_data_container)
             }
+
             R.id.menu_delete_chat -> deleteChat(contact.id) {
                 showToast(getString(R.string.chat_deleted))
                 replaceFragment(MainListFragment(), R.id.main_data_container)
