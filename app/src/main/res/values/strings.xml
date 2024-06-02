@@ -69,6 +69,7 @@
     <string name="add_people_to_chat">Add people to chat</string>
     <string name="information_about_chat">Information about chat</string>
     <string name="add_members_to_chat">Add members to chat!</string>
+    <string name="enter_name_of_group">Enter name of group!</string>
 
 
     <plurals name="count_members">
