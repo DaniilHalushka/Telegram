@@ -9,6 +9,9 @@ import com.daniil.halushka.telegram.R
 import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.databinding.MainListItemBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.chat.singleChat.SingleChatFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.groups.GroupChatFragment
+import com.daniil.halushka.telegram.util.TYPE_CHAT
+import com.daniil.halushka.telegram.util.TYPE_GROUP
 import com.daniil.halushka.telegram.util.downloadAndSetImage
 import com.daniil.halushka.telegram.util.replaceFragment
 import de.hdodenhof.circleimageview.CircleImageView
@@ -30,10 +33,17 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
 
         val holder = MainListHolder(view)
         holder.itemView.setOnClickListener {
-            replaceFragment(
-                SingleChatFragment(listItems[holder.absoluteAdapterPosition]),
-                R.id.main_data_container
-            )
+            when (listItems[holder.absoluteAdapterPosition].type) {
+                TYPE_CHAT -> replaceFragment(
+                    SingleChatFragment(listItems[holder.absoluteAdapterPosition]),
+                    R.id.main_data_container
+                )
+
+                TYPE_GROUP -> replaceFragment(
+                    GroupChatFragment(listItems[holder.absoluteAdapterPosition]),
+                    R.id.main_data_container
+                )
+            }
         }
         return holder
     }

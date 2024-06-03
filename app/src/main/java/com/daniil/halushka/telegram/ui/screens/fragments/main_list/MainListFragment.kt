@@ -87,6 +87,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                         } else {
                             newModel.lastMessage = helpList[0].text
                         }
+                        newModel.type = TYPE_GROUP
                         moduleAdapter.updateListItems(newModel)
                     })
             })
@@ -110,6 +111,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                         if (newModel.fullname.isEmpty()) {
                             newModel.fullname = newModel.phone
                         }
+                        newModel.type = TYPE_CHAT
                         moduleAdapter.updateListItems(newModel)
                     })
             })
