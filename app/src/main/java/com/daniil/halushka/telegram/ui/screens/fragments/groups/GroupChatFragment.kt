@@ -43,7 +43,7 @@ import com.daniil.halushka.telegram.databinding.ChooseUploadFileBinding
 import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseFragment
 import com.daniil.halushka.telegram.ui.screens.fragments.main_list.MainListFragment
-import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.AppViewFactory
+import com.daniil.halushka.telegram.ui.screens.messages.view.AppViewFactory
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppChildEventListener
 import com.daniil.halushka.telegram.util.AppTextWatcher

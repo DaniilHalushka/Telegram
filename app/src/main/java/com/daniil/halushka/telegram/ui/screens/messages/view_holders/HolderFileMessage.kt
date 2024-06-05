@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.message_recycler_view.view_holders
+package com.daniil.halushka.telegram.ui.screens.messages.view_holders
 
 import android.os.Environment
 import android.view.View
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.database.CURRENT_UID
 import com.daniil.halushka.telegram.database.getFileFromStorage
 import com.daniil.halushka.telegram.databinding.MessageItemFileBinding
-import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.MessageView
+import com.daniil.halushka.telegram.ui.screens.messages.view.MessageView
 import com.daniil.halushka.telegram.util.WRITE_FILES
 import com.daniil.halushka.telegram.util.asTime
 import com.daniil.halushka.telegram.util.checkPermission

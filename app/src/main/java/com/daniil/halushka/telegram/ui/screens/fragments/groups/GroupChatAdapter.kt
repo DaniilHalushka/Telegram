@@ -3,9 +3,9 @@ package com.daniil.halushka.telegram.ui.screens.fragments.groups
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.MessageView
-import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view_holders.AppHolderFactory
-import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view_holders.MessageHolder
+import com.daniil.halushka.telegram.ui.screens.messages.view.MessageView
+import com.daniil.halushka.telegram.ui.screens.messages.view_holders.AppHolderFactory
+import com.daniil.halushka.telegram.ui.screens.messages.view_holders.MessageHolder
 
 class GroupChatAdapter : RecyclerView.Adapter<ViewHolder>() {
     private var moduleListMessagesCache = mutableListOf<MessageView>()
