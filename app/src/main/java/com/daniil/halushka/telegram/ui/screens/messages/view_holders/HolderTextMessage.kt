@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.message_recycler_view.view_holders
+package com.daniil.halushka.telegram.ui.screens.messages.view_holders
 
 import android.view.View
 import android.widget.TextView
@@ -6,7 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.daniil.halushka.telegram.database.CURRENT_UID
 import com.daniil.halushka.telegram.databinding.MessageItemTextBinding
-import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.MessageView
+import com.daniil.halushka.telegram.ui.screens.messages.view.MessageView
 import com.daniil.halushka.telegram.util.asTime
 
 class HolderTextMessage(view: View) : RecyclerView.ViewHolder(view), MessageHolder {

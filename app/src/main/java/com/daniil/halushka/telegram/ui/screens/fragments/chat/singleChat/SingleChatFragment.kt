@@ -37,14 +37,14 @@ import com.daniil.halushka.telegram.database.deleteChat
 import com.daniil.halushka.telegram.database.getCommonModel
 import com.daniil.halushka.telegram.database.getMessageKey
 import com.daniil.halushka.telegram.database.getUserModel
-import com.daniil.halushka.telegram.database.saveToMainList
+import com.daniil.halushka.telegram.database.saveChatToMainList
 import com.daniil.halushka.telegram.database.sendMessage
 import com.daniil.halushka.telegram.database.uploadFileToStorage
 import com.daniil.halushka.telegram.databinding.ChooseUploadFileBinding
 import com.daniil.halushka.telegram.databinding.FragmentSingleChatBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseFragment
 import com.daniil.halushka.telegram.ui.screens.fragments.main_list.MainListFragment
-import com.daniil.halushka.telegram.ui.screens.message_recycler_view.view.AppViewFactory
+import com.daniil.halushka.telegram.ui.screens.messages.view.AppViewFactory
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppChildEventListener
 import com.daniil.halushka.telegram.util.AppTextWatcher
@@ -304,7 +304,7 @@ class SingleChatFragment(private val contact: CommonModel) :
             if (message.isEmpty()) {
                 showToast(getString(R.string.enter_message))
             } else sendMessage(message, contact.id, TYPE_TEXT) {
-                saveToMainList(contact.id, TYPE_CHAT)
+                saveChatToMainList(contact.id, TYPE_CHAT)
                 singleChatBinding.chatInputMessage.setText("")
             }
         }
