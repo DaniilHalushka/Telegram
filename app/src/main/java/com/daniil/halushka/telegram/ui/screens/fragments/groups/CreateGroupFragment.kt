@@ -16,7 +16,7 @@ import com.daniil.halushka.telegram.data.models.CommonModel
 import com.daniil.halushka.telegram.database.createGroupInDatabase
 import com.daniil.halushka.telegram.databinding.FragmentCreateGroupBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.base.BaseFragment
-import com.daniil.halushka.telegram.ui.screens.fragments.main_list.MainListFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.mainList.MainListFragment
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.getPlurals
 import com.daniil.halushka.telegram.util.hideKeyboard

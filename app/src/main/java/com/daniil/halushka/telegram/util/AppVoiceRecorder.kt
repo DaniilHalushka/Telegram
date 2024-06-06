@@ -18,7 +18,6 @@ class AppVoiceRecorder {
         } catch (exception: Exception) {
             showToast(exception.message.toString())
         }
-
     }
 
     private fun prepareMediaRecorder() {
