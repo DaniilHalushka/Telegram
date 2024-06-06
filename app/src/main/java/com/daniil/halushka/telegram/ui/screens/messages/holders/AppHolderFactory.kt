@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.messages.view_holders
+package com.daniil.halushka.telegram.ui.screens.messages.holders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

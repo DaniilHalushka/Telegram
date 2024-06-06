@@ -11,7 +11,7 @@ import com.daniil.halushka.telegram.database.initializeFirebase
 import com.daniil.halushka.telegram.database.initializeUser
 import com.daniil.halushka.telegram.databinding.ActivityMainBinding
 import com.daniil.halushka.telegram.ui.screens.fragments.authorization.EnterPhoneNumberFragment
-import com.daniil.halushka.telegram.ui.screens.fragments.main_list.MainListFragment
+import com.daniil.halushka.telegram.ui.screens.fragments.mainList.MainListFragment
 import com.daniil.halushka.telegram.ui.screens.util.AppDrawer
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppStates

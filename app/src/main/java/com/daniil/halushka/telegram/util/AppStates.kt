@@ -9,8 +9,7 @@ import com.daniil.halushka.telegram.database.USER
 
 enum class AppStates(val state: String) {
     ONLINE("online"),
-    OFFLINE("last seen recently"),
-    TYPING("type message");
+    OFFLINE("last seen recently");
 
     companion object {
         fun updateState(appStates: AppStates) {

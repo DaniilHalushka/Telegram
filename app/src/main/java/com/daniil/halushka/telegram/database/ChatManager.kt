@@ -23,7 +23,7 @@ fun saveChatToMainList(id: String, type: String) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun clearChat(id: String, function: () -> Unit) {
+inline fun clearChat(id: String, crossinline function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(id)
         .removeValue()
         .addOnFailureListener { showToast(it.message.toString()) }
@@ -35,7 +35,7 @@ fun clearChat(id: String, function: () -> Unit) {
         }
 }
 
-fun deleteChat(id: String, function: () -> Unit) {
+inline fun deleteChat(id: String, crossinline function: () -> Unit) {
     clearChat(id) {
         REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(CURRENT_UID).child(id).removeValue()
             .addOnFailureListener { showToast(it.message.toString()) }

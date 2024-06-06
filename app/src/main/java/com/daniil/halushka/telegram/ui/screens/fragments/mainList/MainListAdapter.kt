@@ -1,4 +1,4 @@
-package com.daniil.halushka.telegram.ui.screens.fragments.main_list
+package com.daniil.halushka.telegram.ui.screens.fragments.mainList
 
 import android.view.LayoutInflater
 import android.view.View
