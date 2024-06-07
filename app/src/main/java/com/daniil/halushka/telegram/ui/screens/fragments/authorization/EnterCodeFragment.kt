@@ -6,18 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.daniil.halushka.telegram.R
-import com.daniil.halushka.telegram.database.AUTH
-import com.daniil.halushka.telegram.database.CHILD_ID
-import com.daniil.halushka.telegram.database.CHILD_PHONE
-import com.daniil.halushka.telegram.database.NODE_PHONES
-import com.daniil.halushka.telegram.database.NODE_USERS
-import com.daniil.halushka.telegram.database.REF_DATABASE_ROOT
 import com.daniil.halushka.telegram.databinding.FragmentEnterCodeBinding
 import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.AppTextWatcher
 import com.daniil.halushka.telegram.util.restartActivity
+import com.daniil.halushka.telegram.util.saveUserToDatabase
 import com.daniil.halushka.telegram.util.showToast
-import com.google.firebase.auth.PhoneAuthProvider
+import com.daniil.halushka.telegram.util.signInWithCredential
 
 class EnterCodeFragment(
     private val phoneNumber: String,
@@ -47,31 +42,23 @@ class EnterCodeFragment(
 
     private fun enterVerificationCode() {
         val code = codeBinding.registerInputCode.text.toString()
-        val credential = PhoneAuthProvider.getCredential(id, code)
-        AUTH.signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val userId = AUTH.currentUser?.uid.toString()
-                    val dataMap = mutableMapOf<String, Any>()
-                    dataMap[CHILD_ID] = userId
-                    dataMap[CHILD_PHONE] = phoneNumber
+        signInWithCredential(id, code, ::onSignInSuccess, ::onSignInFailure)
+    }
 
-                    REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber).setValue(userId)
-                        .addOnFailureListener {
-                            showToast(it.message.toString())
-                        }
-                        .addOnSuccessListener {
-                            REF_DATABASE_ROOT.child(NODE_USERS).child(userId)
-                                .updateChildren(dataMap)
-                                .addOnSuccessListener {
-                                    showToast(getString(R.string.auth_complete))
-                                    restartActivity()
-                                }
-                                .addOnFailureListener {
-                                    showToast(it.message.toString())
-                                }
-                        }
-                } else showToast(task.exception?.message.toString())
-            }
+    private fun onSignInSuccess() {
+        saveUserToDatabase(phoneNumber, ::onDatabaseSuccess, ::onDatabaseFailure)
+    }
+
+    private fun onSignInFailure(errorMessage: String) {
+        showToast(errorMessage)
+    }
+
+    private fun onDatabaseSuccess() {
+        showToast(getString(R.string.auth_complete))
+        restartActivity()
+    }
+
+    private fun onDatabaseFailure(errorMessage: String) {
+        showToast(errorMessage)
     }
 }
