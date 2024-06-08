@@ -28,90 +28,83 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
 
-    private lateinit var contactsBinding: FragmentContactsBinding
-    private lateinit var moduleRecyclerView: RecyclerView
-    private lateinit var moduleAdapter: FirebaseRecyclerAdapter<CommonModel, ContactsHolder>
-    private lateinit var moduleRefContacts: DatabaseReference
-    private lateinit var moduleRefUsersListener: AppValueEventListener
-    private lateinit var moduleRefUsers: DatabaseReference
-    private var mapListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
+    private lateinit var binding: FragmentContactsBinding
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: FirebaseRecyclerAdapter<CommonModel, ContactsHolder>
+    private lateinit var contactsRef: DatabaseReference
+    private val listenersMap = hashMapOf<DatabaseReference, AppValueEventListener>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        contactsBinding = FragmentContactsBinding.inflate(inflater, container, false)
-        return contactsBinding.root
+        binding = FragmentContactsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onResume() {
         super.onResume()
         APP_ACTIVITY.title = getString(R.string.contacts_title)
         initializeRecyclerView()
-
     }
 
     override fun onPause() {
         super.onPause()
-        moduleAdapter.stopListening()
-        mapListeners.forEach {
-            it.key.removeEventListener(it.value)
-        }
+        cleanupListeners()
     }
 
     private fun initializeRecyclerView() {
-        moduleRecyclerView = contactsBinding.contactsRecyclerView
-        moduleRefContacts = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
+        recyclerView = binding.contactsRecyclerView
+        contactsRef = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
 
         val options = FirebaseRecyclerOptions.Builder<CommonModel>()
-            .setQuery(moduleRefContacts, CommonModel::class.java)
+            .setQuery(contactsRef, CommonModel::class.java)
             .build()
 
-        moduleAdapter = object : FirebaseRecyclerAdapter<CommonModel, ContactsHolder>(options) {
+        adapter = object : FirebaseRecyclerAdapter<CommonModel, ContactsHolder>(options) {
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsHolder {
-                val contactItemBinding = ContactItemBinding
-                    .inflate(LayoutInflater.from(parent.context), parent, false)
-
-                return ContactsHolder(contactItemBinding)
+                val itemBinding = ContactItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return ContactsHolder(itemBinding)
             }
 
-            override fun onBindViewHolder(
-                contactsHolder: ContactsHolder,
-                position: Int,
-                commonModel: CommonModel
-            ) {
-                moduleRefUsers = REF_DATABASE_ROOT.child(NODE_USERS)
-                    .child(commonModel.id)
-                moduleRefUsersListener = AppValueEventListener {
-                    val contact = it.getCommonModel()
-
-                    if (contact.fullname.isEmpty()) {
-                        contactsHolder.name.text = commonModel.fullname
-                    } else contactsHolder.name.text = contact.fullname
-
-                    contactsHolder.status.text = contact.state
-                    contactsHolder.photo.downloadAndSetImage(contact.photoURL)
-                    contactsHolder.itemView.setOnClickListener {
-                        replaceFragment(
-                            SingleChatFragment(commonModel),
-                            R.id.main_data_container
-                        )
-                    }
-                }
-                moduleRefUsers.addValueEventListener(moduleRefUsersListener)
-                mapListeners[moduleRefUsers] = moduleRefUsersListener
+            override fun onBindViewHolder(holder: ContactsHolder, position: Int, model: CommonModel) {
+                bindContact(holder, model)
             }
         }
 
-        moduleRecyclerView.adapter = moduleAdapter
-        moduleAdapter.startListening()
+        recyclerView.adapter = adapter
+        adapter.startListening()
     }
 
-    class ContactsHolder(itemBinding: ContactItemBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
-        val name: TextView = itemBinding.contactFullname
-        val status: TextView = itemBinding.contactStatus
-        val photo: CircleImageView = itemBinding.contactPhoto
+    private fun bindContact(holder: ContactsHolder, commonModel: CommonModel) {
+        val userRef = REF_DATABASE_ROOT.child(NODE_USERS).child(commonModel.id)
+        val userListener = AppValueEventListener { snapshot ->
+            val contact = snapshot.getCommonModel()
+
+            holder.name.text = contact.fullname.ifEmpty { commonModel.fullname }
+            holder.status.text = contact.state
+            holder.photo.downloadAndSetImage(contact.photoURL)
+            holder.itemView.setOnClickListener {
+                replaceFragment(SingleChatFragment(commonModel), R.id.main_data_container)
+            }
+        }
+
+        userRef.addValueEventListener(userListener)
+        listenersMap[userRef] = userListener
+    }
+
+    private fun cleanupListeners() {
+        adapter.stopListening()
+        listenersMap.forEach { (ref, listener) ->
+            ref.removeEventListener(listener)
+        }
+        listenersMap.clear()
+    }
+
+    class ContactsHolder(binding: ContactItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        val name: TextView = binding.contactFullname
+        val status: TextView = binding.contactStatus
+        val photo: CircleImageView = binding.contactPhoto
     }
 }
-
