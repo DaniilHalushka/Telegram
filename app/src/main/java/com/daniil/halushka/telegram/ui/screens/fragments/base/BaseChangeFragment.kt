@@ -9,6 +9,7 @@ import com.daniil.halushka.telegram.util.APP_ACTIVITY
 import com.daniil.halushka.telegram.util.hideKeyboard
 
 open class BaseChangeFragment(layout: Int) : Fragment(layout) {
+    //TODO deprecated
     override fun onStart() {
         super.onStart()
         setHasOptionsMenu(true)
@@ -16,10 +17,17 @@ open class BaseChangeFragment(layout: Int) : Fragment(layout) {
         hideKeyboard()
     }
 
+    @Deprecated("Deprecated in Java", ReplaceWith(
+        "APP_ACTIVITY.menuInflater.inflate(R.menu.settings_confirm_menu, menu)",
+        "com.daniil.halushka.telegram.util.APP_ACTIVITY",
+        "com.daniil.halushka.telegram.R"
+    )
+    )
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         APP_ACTIVITY.menuInflater.inflate(R.menu.settings_confirm_menu, menu)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.settings_confirm_change -> change()
