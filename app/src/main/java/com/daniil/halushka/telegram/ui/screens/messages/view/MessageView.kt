@@ -1,5 +1,6 @@
 package com.daniil.halushka.telegram.ui.screens.messages.view
 
+@Suppress("SameReturnValue")
 interface MessageView {
     val id: String
     val from: String
