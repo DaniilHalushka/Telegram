@@ -8,7 +8,7 @@ import com.google.firebase.storage.FirebaseStorage
 fun initializeFirebase() {
     AUTH = FirebaseAuth.getInstance()
     REF_DATABASE_ROOT =
-        FirebaseDatabase.getInstance("https://telegram-665f2-default-rtdb.europe-west1.firebasedatabase.app/")
+        FirebaseDatabase.getInstance(//TODO enter link of your database)
             .getReference()
     USER = UserModel()
     CURRENT_UID = AUTH.currentUser?.uid.toString()
